@@ -18,6 +18,5 @@ Given(/^I have a makefile to test my demo program that uses Unity$/) do
 end
 
 Then(/^tests are invoked and the test is successful$/) do
-  expect(system("cd \"#{@test_root}\"; make")).to eq true
-  expect(system("cd \"#{@test_root}\"; make clean")).to eq true
+  expect(system("cd \"#{@test_root}\"; make default clean")).to eq true
 end
