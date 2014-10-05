@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		697331DB346EE82EE6ADED49 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6973384DE948EC5F280A719E /* main.c */; };
-		937F103F19E1A242000519E2 /* unity.c in Sources */ = {isa = PBXBuildFile; fileRef = 937F103E19E1A242000519E2 /* unity.c */; };
+		937F104319E1AC6D000519E2 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 937F104019E1AC6D000519E2 /* main.c */; };
+		937F104419E1AC6D000519E2 /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 937F104119E1AC6D000519E2 /* makefile */; };
+		937F104519E1AC6D000519E2 /* unity.c in Sources */ = {isa = PBXBuildFile; fileRef = 937F104219E1AC6D000519E2 /* unity.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,9 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6973384DE948EC5F280A719E /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		69733D09E3996A5A7963B66E /* wire-c */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "wire-c"; sourceTree = BUILT_PRODUCTS_DIR; };
-		937F103E19E1A242000519E2 /* unity.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unity.c; sourceTree = "<group>"; };
+		937F104019E1AC6D000519E2 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = tests/main.c; sourceTree = "<group>"; };
+		937F104119E1AC6D000519E2 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = makefile; path = tests/makefile; sourceTree = "<group>"; };
+		937F104219E1AC6D000519E2 /* unity.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unity.c; path = tests/unity.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,16 +46,18 @@
 			isa = PBXGroup;
 			children = (
 				69733FA6B59A3EA352D32296 /* Products */,
-				697331B78B06D37F04003EDD /* wire-c */,
+				697331B78B06D37F04003EDD /* wire-c-tests */,
 			);
 			sourceTree = "<group>";
 		};
-		697331B78B06D37F04003EDD /* wire-c */ = {
+		697331B78B06D37F04003EDD /* wire-c-tests */ = {
 			isa = PBXGroup;
 			children = (
-				937F103E19E1A242000519E2 /* unity.c */,
-				6973384DE948EC5F280A719E /* main.c */,
+				937F104019E1AC6D000519E2 /* main.c */,
+				937F104119E1AC6D000519E2 /* makefile */,
+				937F104219E1AC6D000519E2 /* unity.c */,
 			);
+			name = "wire-c-tests";
 			path = "wire-c";
 			sourceTree = "<group>";
 		};
@@ -115,8 +119,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				697331DB346EE82EE6ADED49 /* main.c in Sources */,
-				937F103F19E1A242000519E2 /* unity.c in Sources */,
+				937F104519E1AC6D000519E2 /* unity.c in Sources */,
+				937F104419E1AC6D000519E2 /* makefile in Sources */,
+				937F104319E1AC6D000519E2 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

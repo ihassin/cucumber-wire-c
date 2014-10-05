@@ -1,4 +1,4 @@
-UNITY_ROOT=../../unity-master
+UNITY_ROOT=../../../unity-master
 C_COMPILER=gcc
 TARGET_BASE=main
 ifeq ($(OS),Windows_NT)
