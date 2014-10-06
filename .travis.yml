@@ -4,6 +4,7 @@ compiler:
   - clang
 script: 
   - cd wire-c/tests && make clean && make
+  - cd ..
   - cd wire-c/wire-server && make clean && make
 
 
