@@ -6,8 +6,6 @@ LIB_FILES=wire-server.c
 LIB_OBJ=wire-server.o
 LIB_NAME=wire-server.a
 
-MAIN_FILES=main.c
-
 all: lib main
 
 $(LIB_PATH)/$(LIB_NAME): $(LIB_FILES)
@@ -16,10 +14,10 @@ $(LIB_PATH)/$(LIB_NAME): $(LIB_FILES)
 lib: $(LIB_PATH)/$(LIB_NAME)
 	ar rvs $(LIB_PATH)/$(LIB_NAME) $(OBJ_PATH)/$(LIB_OBJ)
 
-$(OBJ_PATH)/main.o: main.c
-	gcc -c $(MAIN_FILES) -o $(OBJ_PATH)/main.o
+$(OBJ_PATH)/main.o:
+	gcc -c main.c -o $(OBJ_PATH)/main.o
 
-main: $(BIN_PATH)/main.out
+main: lib $(OBJ_PATH)/main.o
 	gcc -o $(BIN_PATH)/main.out $(OBJ_PATH)/main.o $(LIB_PATH)/$(LIB_NAME)
 
 clean:
