@@ -2,4 +2,5 @@
 **/DerivedData
 **/*.xcodeproj
 **/*.out
-
+**/lib/
+**/obj/

@@ -12,8 +12,8 @@ Then(/^Unity is invoked and the test is successful$/) do
 end
 
 Given(/^I have a makefile to test my demo program that uses Unity$/) do
-  @test_root = File.expand_path("../../../../wire-c/wire-c/tests", __FILE__)
-  @makefile = File.expand_path("../../../../wire-c/wire-c/tests/" + 'makefile', __FILE__)
+  @test_root = File.expand_path("../../../../wire-c/tests", __FILE__)
+  @makefile = File.expand_path("../../../../wire-c/tests/" + 'makefile', __FILE__)
   expect(File.exist? @makefile).to eq true
 end
 
