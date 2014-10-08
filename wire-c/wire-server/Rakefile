@@ -1,0 +1,35 @@
+=begin
+
+=end
+
+heads = %w(wire-server.h)
+fileroots = %w(main wire-server)
+
+fileroots.each do |element|
+    file "obj/#{element}.o" => heads + ["#{element}.c"] do
+        puts "Compiling #{element}"
+        system "cc -c #{element}.c -o obj/#{element}.o"
+    end
+end
+
+objfiles = fileroots.map {|item| "obj/" + item + ".o"}
+
+file "lib/wire.a" =>  objfiles do
+	puts "Building library"
+	system "ar rvs lib/wire.a " + objfiles.join(" ") + "> /dev/null"
+end
+
+file "./bin/wire.out" => "lib/wire.a" do
+	puts "Linking"
+    system "cc -o ./bin/wire.out lib/wire.a"
+end
+
+file :wire => "./bin/wire.out" do
+	puts "Wire is in bin folder"
+end
+
+file :clean do 
+	system "rm obj/* > /dev/null"
+	system "rm lib/* > /dev/null"
+	system "rm bin/* > /dev/null"
+end
