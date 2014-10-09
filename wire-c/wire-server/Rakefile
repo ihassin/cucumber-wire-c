@@ -2,7 +2,7 @@
 
 =end
 
-task :default => [:wire]
+task :default => [:build]
 
 heads = %w(wire-server.h)
 fileroots = %w(main wire-server)
@@ -26,7 +26,7 @@ file "./bin/wire.out" => "lib/wire.a" do
     system "cc -o ./bin/wire.out lib/wire.a"
 end
 
-task :wire => "./bin/wire.out" do
+task :build => "./bin/wire.out" do
 	puts "Wire is in bin folder"
 end
 

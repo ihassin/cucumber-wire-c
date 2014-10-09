@@ -14,8 +14,15 @@
 
 #define kVersion "0.0.0.0"
 
-int wire_server(int port, int verbose)
+int wire_server(wire_context *context)
 {
-	printf("wire_server %s\n", kVersion);
+	if (context->port <= 0)
+	{
+		return(1);
+	}
+	if(context->logger)
+	{
+		(*context->logger) ("wire_server: Startup");
+	}
 	return(0);
 }

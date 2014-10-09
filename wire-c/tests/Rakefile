@@ -30,8 +30,8 @@ end
 
 task :test do
 	puts "Running tests"
-	ret_val = system "./bin/main.out"
-	puts "ret #{ret_val}"
+	system("./bin/main.out")
+	puts "ret #{$?.exitstatus}"
 end
 
 task :clean do 

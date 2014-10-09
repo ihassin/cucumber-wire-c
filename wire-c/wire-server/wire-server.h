@@ -8,6 +8,14 @@
 #ifndef __WIRE_SERVER_H__
 #define __WIRE_SERVER_H__
 
-int wire_server(int port, int verbose);
+typedef void (*wire_logger)(char *log);
+
+typedef struct wire_context
+{
+	int port;
+	wire_logger logger;
+} wire_context;
+
+int wire_server(wire_context *context);
 
 #endif

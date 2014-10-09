@@ -6,6 +6,3 @@ script:
   - cd wire-c/tests && rake clean && rake
   - cd ..
   - cd wire-server && rake clean && rake
-
-
-
