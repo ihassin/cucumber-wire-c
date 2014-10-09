@@ -19,8 +19,12 @@ int wire_server(wire_context *context)
 	}
 	if(context->logger)
 	{
-		(*context->logger) ("wire_server: Startup");
+		(*context->logger) ("wire_server: Started");
 	}
 
+	if(context->logger)
+	{
+		(*context->logger) ("wire_server: Shut down");
+	}
 	return(0);
 }
