@@ -1,5 +1,5 @@
 =begin
-	Rakefile to compile, link and link the test harness
+	Rakefile to compile, link and run the test harness
 =end
 
 WIRE_PATH="../wire-server"
