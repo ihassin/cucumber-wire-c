@@ -3,7 +3,7 @@
 
 #include "wire-server.h"
 
-void logger(char *log)
+void my_logger(char *log)
 {
 	printf("Logger: %s\n", log);
 }
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 
 	context = malloc(sizeof(context));
 	context->port = port;
-	context->logger = logger;
+	context->logger = my_logger;
 
 	ret_val = wire_server(context);
 	return(ret_val);

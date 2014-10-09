@@ -21,5 +21,6 @@ void rejects_zero_port_number(void)
 
 void listens_on_requested_port(void)
 {
-    TEST_ASSERT_EQUAL(0, wire_server(context));
+	context->port = 3901;
+    TEST_ASSERT_EQUAL(0, wire_listener(context->port));
 }

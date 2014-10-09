@@ -6,7 +6,7 @@
 #include "context.h"
 #endif
 
-void logger(char *log)
+void my_logger(char *log)
 {
 	printf("Logger: %s\n", log);
 }
@@ -14,7 +14,7 @@ void logger(char *log)
 void setUp(void)
 {
 	context = malloc(sizeof(wire_context));
-	context->logger = logger;
+	context->logger = my_logger;
 	context->port = 3901;
 }
 

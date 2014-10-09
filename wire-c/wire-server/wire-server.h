@@ -17,5 +17,7 @@ typedef struct wire_context
 } wire_context;
 
 int wire_server(wire_context *context);
+int wire_listener(int port);
+char *wire_version();
 
 #endif

@@ -10,9 +10,16 @@
 #include "port_tests.h"
 #endif
 
+#ifndef __MISC_TESTS_H__
+#include "misc_tests.h"
+#endif
+
 int main(void)
 {
     UnityBegin("main.c");
+
+    // Listening on requested port
+    RUN_TEST(returns_a_version_string);
 
 	// Valid port numbers    
     RUN_TEST(accepts_valid_port_number);

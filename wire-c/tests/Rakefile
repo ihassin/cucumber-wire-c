@@ -10,8 +10,8 @@ LIB = "#{WIRE_PATH}/lib/wire.a"
 
 task :default => [:build, :run]
 
-heads = %w(context.h port_tests.h)
-fileroots = %w(main unity context port_tests)
+heads = %w(context.h port_tests.h misc_tests.h)
+fileroots = %w(main unity context port_tests misc_tests)
 
 fileroots.each do |element|
     file "obj/#{element}.o" => heads + ["#{element}.c"] do
