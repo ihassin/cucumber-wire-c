@@ -9,6 +9,5 @@ script:
   - cd ..
   - cd tests
   - rake clean
-  - rake build run
-  
-  
+  - rake build
+  - rake run
