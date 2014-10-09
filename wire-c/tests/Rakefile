@@ -1,0 +1,40 @@
+=begin
+
+=end
+
+WIRE_PATH="../wire-server"
+C_FLAGS = "-I. -I../../unity-master/src -I#{WIRE_PATH}"
+
+task :default => [:main, :test]
+
+heads = %w()
+fileroots = %w(main unity)
+
+fileroots.each do |element|
+    file "obj/#{element}.o" => heads + ["#{element}.c"] do
+        puts "Compiling #{element}"
+        system "cc #{C_FLAGS} -c #{element}.c -o obj/#{element}.o"
+    end
+end
+
+objfiles = fileroots.map {|item| "obj/" + item + ".o"}
+
+file "./bin/main.out" => objfiles do
+	puts "Linking"
+    system "cc -o ./bin/main.out " +  objfiles.join(" ") +  " #{WIRE_PATH}/lib/wire.a > /dev/null"
+end
+
+task :main => "./bin/main.out" do
+	puts "test is in bin folder"
+end
+
+task :test do
+	puts "Running tests"
+	ret_val = system "./bin/main.out"
+	puts "ret #{ret_val}"
+end
+
+task :clean do 
+	system "rm obj/* > /dev/null"
+	system "rm bin/* > /dev/null"
+end

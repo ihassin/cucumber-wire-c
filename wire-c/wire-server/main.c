@@ -4,6 +4,10 @@
 
 int main(int argc, char **argv)
 {
-	hi();
-	return(0);
+	int port = 3901;
+	int verbose = 1;
+	int ret_val;
+
+	ret_val = wire_server(port, verbose);
+	return(ret_val);
 }

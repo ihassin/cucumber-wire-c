@@ -8,6 +8,6 @@
 #ifndef __WIRE_SERVER_H__
 #define __WIRE_SERVER_H__
 
-void hi();
+int wire_server(int port, int verbose);
 
 #endif

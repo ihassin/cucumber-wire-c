@@ -12,7 +12,10 @@
 #include "wire-server.h"
 #endif
 
-void hi()
+#define kVersion "0.0.0.0"
+
+int wire_server(int port, int verbose)
 {
-	printf("hi\n");
+	printf("wire_server %s\n", kVersion);
+	return(0);
 }
