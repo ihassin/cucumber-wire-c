@@ -21,15 +21,18 @@ file "lib/wire.a" =>  objfiles do
 	system "ar rvs lib/wire.a " + objfiles.join(" ") + "> /dev/null"
 end
 
+desc "Builds the listener executable"
 file "./bin/wire.out" => "lib/wire.a" do
 	puts "Linking"
     system "cc -o ./bin/wire.out lib/wire.a"
 end
 
+desc "Compiles and links the wire-server executable"
 task :build => "./bin/wire.out" do
 	puts "Wire is in bin folder"
 end
 
+desc "Removes artefacts"
 task :clean do 
 	system "rm obj/* > /dev/null"
 	system "rm lib/* > /dev/null"

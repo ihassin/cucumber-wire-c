@@ -5,7 +5,7 @@
 WIRE_PATH="../wire-server"
 C_FLAGS = "-I. -I../../unity-master/src -I#{WIRE_PATH}"
 
-task :default => [:main, :test]
+task :default => [:build, :test]
 
 heads = %w()
 fileroots = %w(main unity)
@@ -24,16 +24,19 @@ file "./bin/main.out" => objfiles do
     system "cc -o ./bin/main.out " +  objfiles.join(" ") +  " #{WIRE_PATH}/lib/wire.a > /dev/null"
 end
 
-task :main => "./bin/main.out" do
+desc "Compiles and links the test program"
+task :build => "./bin/main.out" do
 	puts "test is in bin folder"
 end
 
+desc "Runs the test program"
 task :test do
 	puts "Running tests"
 	system("./bin/main.out")
 	puts "ret #{$?.exitstatus}"
 end
 
+desc "Removes artefacts"
 task :clean do 
 	system "rm obj/* > /dev/null"
 	system "rm bin/* > /dev/null"

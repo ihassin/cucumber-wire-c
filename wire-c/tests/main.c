@@ -5,7 +5,6 @@
 //  Copyright (c) 2014 InContext. All rights reserved.
 //
 #include <stdlib.h>
-#include <stdio.h>
 #include "unity.h"
 #include "wire-server.h"
 

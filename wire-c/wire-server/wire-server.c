@@ -5,9 +5,6 @@
 //  Created by Itamar on 10/5/14.
 //  Copyright (c) 2014 InContext. All rights reserved.
 //
-
-#include <stdio.h>
-
 #ifndef __WIRE_SERVER_H__
 #include "wire-server.h"
 #endif
@@ -24,5 +21,6 @@ int wire_server(wire_context *context)
 	{
 		(*context->logger) ("wire_server: Startup");
 	}
+
 	return(0);
 }
