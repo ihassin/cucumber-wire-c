@@ -3,9 +3,9 @@ compiler:
   - gcc
   - clang
 script: 
-  - cd wire-c/tests && make clean && make
+  - cd wire-c/tests && rake clean && rake
   - cd ..
-  - cd wire-server && make clean && make
+  - cd wire-server && rake clean && rake
 
 
 
