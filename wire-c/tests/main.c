@@ -34,7 +34,7 @@ void rejects_zero_port_number(void)
 {
 	wire_context *context = malloc(sizeof(wire_context));
 	context->port = 0;
-    TEST_ASSERT_EQUAL(2, wire_server(context));
+    TEST_ASSERT_EQUAL(1, wire_server(context));
     free(context);
 }
 
