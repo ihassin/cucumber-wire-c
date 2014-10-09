@@ -8,16 +8,19 @@
 #ifndef __WIRE_SERVER_H__
 #define __WIRE_SERVER_H__
 
-typedef void (*wire_logger)(char *log);
+typedef void (*wire_logger) (char *log);
+typedef int (*wire_listener) (int port, wire_logger logger);
 
 typedef struct wire_context
 {
 	int port;
 	wire_logger logger;
+	wire_listener listener;
+
 } wire_context;
 
 int wire_server(wire_context *context);
-int wire_listener(int port);
+int wire_listener_default(int port, wire_logger logger);
 char *wire_version();
 
 #endif
