@@ -34,11 +34,6 @@ int wire_server(wire_context *context)
 	return(ret_val);
 }
 
-int wire_listener(int port)
-{
-	return(0);	
-}
-
 char *wire_version()
 {
 	return(kVersion);

@@ -8,7 +8,7 @@ LIB 	= "./lib/wire.a"
 task :default => [:build]
 
 heads = %w(wire-server.h)
-fileroots = %w(main wire-server)
+fileroots = %w(main wire-server wire-listener)
 
 fileroots.each do |element|
     file "obj/#{element}.o" => heads + ["#{element}.c"] do

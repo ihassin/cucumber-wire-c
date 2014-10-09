@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#ifndef __WIRE_SERVER_H__
 #include "wire-server.h"
+#endif
 
 void my_logger(char *log)
 {
