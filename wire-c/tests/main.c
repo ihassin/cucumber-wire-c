@@ -5,37 +5,44 @@
 //  Copyright (c) 2014 InContext. All rights reserved.
 //
 #include <stdlib.h>
+#include <stdio.h>
 #include "unity.h"
 #include "wire-server.h"
+
+wire_context *context = 0;
 
 void logger(char *log)
 {
 	printf("Logger: %s\n", log);
 }
 
+void setUp(void)
+{
+	context = malloc(sizeof(wire_context));
+}
+ 
+void tearDown(void)
+{
+    free(context);
+}
+
 void correctly_processes_port_number(void)
 {
-	wire_context *context = malloc(sizeof(wire_context));
 	context->port = 3901;
 	context->logger = logger;
     TEST_ASSERT_EQUAL(0, wire_server(context));
-    free(context);
 }
 
 void rejects_negative_port_number(void)
 {
-	wire_context *context = malloc(sizeof(wire_context));
 	context->port = -3901;
     TEST_ASSERT_EQUAL(1, wire_server(context));
-    free(context);
 }
 
 void rejects_zero_port_number(void)
 {
-	wire_context *context = malloc(sizeof(wire_context));
 	context->port = 0;
     TEST_ASSERT_EQUAL(1, wire_server(context));
-    free(context);
 }
 
 int main(void)
