@@ -10,8 +10,8 @@ LIB = "#{WIRE_PATH}/lib/wire.a"
 
 task :default => [:build, :run]
 
-heads = %w()
-fileroots = %w(main unity)
+heads = %w(context.h port_tests.h)
+fileroots = %w(main unity context port_tests)
 
 fileroots.each do |element|
     file "obj/#{element}.o" => heads + ["#{element}.c"] do
@@ -22,18 +22,18 @@ end
 
 objfiles = fileroots.map {|item| "obj/" + item + ".o"}
 
+file "#{EXEC}" => objfiles do
+	list = "cc -o #{EXEC} " +  objfiles.join(" ") + " #{LIB} > /dev/null"
+    system "#{list}"
+end
+
 desc "Compiles and links the test program"
 task :build => "#{EXEC}" do
 	puts "#{EXEC} is ready"
 end
 
-file "#{EXEC}" => objfiles do
-	puts "Linking"
-    system "cc -o #{EXEC} " +  objfiles.join(" ") +  " #{LIB} > /dev/null"
-end
-
 desc "Runs the test program"
-task :run do
+task :run => :build do
 	puts "Running tests"
 	ret_val = system("#{EXEC}")
 	fail unless ret_val #puts "ret #{ret_val}: #{$?.exitstatus}"

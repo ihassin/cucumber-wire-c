@@ -4,54 +4,22 @@
 //  Created by Itamar on 10/5/14.
 //  Copyright (c) 2014 InContext. All rights reserved.
 //
-#include <stdlib.h>
-#include <stdio.h>
 #include "unity.h"
-#include "wire-server.h"
 
-wire_context *context = 0;
-
-void logger(char *log)
-{
-	printf("Logger: %s\n", log);
-}
-
-void setUp(void)
-{
-	context = malloc(sizeof(wire_context));
-}
- 
-void tearDown(void)
-{
-    free(context);
-}
-
-void correctly_processes_port_number(void)
-{
-	context->port = 3901;
-	context->logger = logger;
-    TEST_ASSERT_EQUAL(0, wire_server(context));
-}
-
-void rejects_negative_port_number(void)
-{
-	context->port = -3901;
-    TEST_ASSERT_EQUAL(1, wire_server(context));
-}
-
-void rejects_zero_port_number(void)
-{
-	context->port = 0;
-    TEST_ASSERT_EQUAL(1, wire_server(context));
-}
+#ifndef __PORT_TESTS_H__
+#include "port_tests.h"
+#endif
 
 int main(void)
 {
     UnityBegin("main.c");
-    
-    RUN_TEST(correctly_processes_port_number);
+
+	// Valid port numbers    
+    RUN_TEST(accepts_valid_port_number);
     RUN_TEST(rejects_negative_port_number);
     RUN_TEST(rejects_zero_port_number);
 
+    // Listening on requested port
+    RUN_TEST(listens_on_requested_port);
     return UnityEnd();
 }
