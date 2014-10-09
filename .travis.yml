@@ -3,6 +3,7 @@ compiler:
   - gcc
   - clang
 script: 
-  - cd wire-c/tests && rake clean && rake
+  - cd wire-c/wire-server && rake clean && rake build
   - cd ..
-  - cd wire-server && rake clean && rake
+  - cd tests && rake clean && rake build run
+  
