@@ -36,7 +36,7 @@ desc "Runs the test program"
 task :run do
 	puts "Running tests"
 	system("#{EXEC}")
-	puts "ret #{$?.exitstatus}"
+	# puts "ret #{$?.exitstatus}"
 end
 
 desc "Removes artefacts"

@@ -7,3 +7,4 @@ script:
   - cd ..
   - cd tests && rake clean && rake build run
   
+  
