@@ -1,6 +1,9 @@
 =begin
-
+	Rakefile to make the wire-server library and executable
 =end
+
+EXEC 	= "./bin/wire.out"
+LIB 	= "./lib/wire.a"
 
 task :default => [:build]
 
@@ -16,20 +19,20 @@ end
 
 objfiles = fileroots.map {|item| "obj/" + item + ".o"}
 
-file "lib/wire.a" =>  objfiles do
+file "#{LIB}" =>  objfiles do
 	puts "Building library"
-	system "ar rvs lib/wire.a " + objfiles.join(" ") + "> /dev/null"
+	system "ar rvs #{LIB} " + objfiles.join(" ") + "> /dev/null"
 end
 
 desc "Builds the listener executable"
-file "./bin/wire.out" => "lib/wire.a" do
+file "#{EXEC}" => "#{LIB}" do
 	puts "Linking"
-    system "cc -o ./bin/wire.out lib/wire.a"
+    system "cc -o #{EXEC} #{LIB}"
 end
 
 desc "Compiles and links the wire-server executable"
-task :build => "./bin/wire.out" do
-	puts "Wire is in bin folder"
+task :build => "#{EXEC}" do
+	puts "#{EXEC} is ready"
 end
 
 desc "Removes artefacts"
@@ -37,4 +40,9 @@ task :clean do
 	system "rm obj/* > /dev/null"
 	system "rm lib/* > /dev/null"
 	system "rm bin/* > /dev/null"
+end
+
+desc "Runs the server"
+task :run do 
+	system "#{EXEC} 3901"
 end

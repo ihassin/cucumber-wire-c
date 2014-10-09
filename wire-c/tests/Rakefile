@@ -1,11 +1,14 @@
 =begin
-
+	Rakefile to compile and link the test harness
 =end
 
 WIRE_PATH="../wire-server"
 C_FLAGS = "-I. -I../../unity-master/src -I#{WIRE_PATH}"
 
-task :default => [:build, :test]
+EXEC = "./bin/main.out"
+LIB = "#{WIRE_PATH}/lib/wire.a"
+
+task :default => [:build, :run]
 
 heads = %w()
 fileroots = %w(main unity)
@@ -19,20 +22,20 @@ end
 
 objfiles = fileroots.map {|item| "obj/" + item + ".o"}
 
-file "./bin/main.out" => objfiles do
+file "#{EXEC}" => objfiles do
 	puts "Linking"
-    system "cc -o ./bin/main.out " +  objfiles.join(" ") +  " #{WIRE_PATH}/lib/wire.a > /dev/null"
+    system "cc -o #{EXEC} " +  objfiles.join(" ") +  " #{LIB} > /dev/null"
 end
 
 desc "Compiles and links the test program"
-task :build => "./bin/main.out" do
-	puts "test is in bin folder"
+task :build => "#{EXEC}" do
+	puts "#{EXEC} is ready"
 end
 
 desc "Runs the test program"
-task :test do
+task :run do
 	puts "Running tests"
-	system("./bin/main.out")
+	system("#{EXEC}")
 	puts "ret #{$?.exitstatus}"
 end
 
