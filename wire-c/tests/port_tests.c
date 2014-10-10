@@ -67,7 +67,6 @@ void listens_on_requested_port(void)
          // Report an error.
     }
 
-    sleep(1);
     int ret_val = tcp_client(context);
     void *status;
     pthread_join(posixThreadID, &status);

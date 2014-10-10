@@ -12,5 +12,6 @@
 #include <netdb.h>
 #include <time.h>
 #include <arpa/inet.h>
+#include <errno.h>
 
 #endif

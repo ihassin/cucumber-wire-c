@@ -36,6 +36,9 @@ int wire_listener_default(int port, wire_logger logger)
     {
         (*logger) ("listener: Binding socket");
     }
+
+    int optval = 1;
+    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
     /* Now bind the host address using bind() call.*/
     ret_val = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (ret_val < 0)
@@ -44,7 +47,7 @@ int wire_listener_default(int port, wire_logger logger)
         {
             (*logger) ("listener: Cannot bind");
         }
-        printf("cannot bind: %d\n", ret_val);
+        printf("cannot bind: %d errno:%d\n", ret_val, errno);
         return(2);
     }
 
