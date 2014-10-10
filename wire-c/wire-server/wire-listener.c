@@ -6,6 +6,8 @@
 #include "wire-server.h"
 #endif
 
+#define LOG(m) { if (logger) (*logger) (m); }
+
 int wire_listener_default(int port, wire_logger logger)
 {
     int sockfd, newsockfd;
@@ -14,15 +16,13 @@ int wire_listener_default(int port, wire_logger logger)
     struct sockaddr_in serv_addr, cli_addr;
     int n, ret_val;
 
-    if (logger)
-    {
-        (*logger) ("listener: Allocating socket");
-    }
+    LOG("listener: Allocating socket")
+
     /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) 
     {
-      	//perror("ERROR opening socket");
+      	LOG("ERROR opening socket")
         return(1);
     }
     /* Initialize socket structure */
@@ -32,10 +32,7 @@ int wire_listener_default(int port, wire_logger logger)
     serv_addr.sin_addr.s_addr = INADDR_ANY;
     serv_addr.sin_port = htons(port);
  
-    if (logger)
-    {
-        (*logger) ("listener: Binding socket");
-    }
+    LOG("listener: Binding socket")
 
     int optval = 1;
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
@@ -43,18 +40,13 @@ int wire_listener_default(int port, wire_logger logger)
     ret_val = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (ret_val < 0)
     {
-        if (logger)
-        {
-            (*logger) ("listener: Cannot bind");
-        }
+        LOG("listener: Cannot bind")
         printf("cannot bind: %d errno:%d\n", ret_val, errno);
         return(2);
     }
 
-    if (logger)
-    {
-        (*logger) ("listener: Listening on socket");
-    }
+    LOG("listener: Listening on socket")
+
     /* Now start listening for the clients, here process will
     * go in sleep mode and will wait for the incoming connection
     */
@@ -62,7 +54,7 @@ int wire_listener_default(int port, wire_logger logger)
     if (ret_val < 0)
     {
         close(sockfd);
-        //perror("ERROR reading from socket");
+        LOG("ERROR reading from socket")
         return(3);
     }
     clilen = sizeof(cli_addr);
@@ -77,45 +69,38 @@ int wire_listener_default(int port, wire_logger logger)
     {
         close(newsockfd);
         close(sockfd);
-        //perror("ERROR on accept");
+        LOG("ERROR on accept")
         return(4);
     }
-    if (logger)
-    {
-        (*logger) ("listener: Reading data");
-    }
+    LOG("listener: Reading data")
+
     /* If connection is established then start communicating */
     bzero(buffer, sizeof(buffer));
     n = read( newsockfd,buffer, sizeof(buffer) - 1 );
     if (n < 0)
     {
+        LOG("ERROR on read")
         close(newsockfd);
         close(sockfd);
         return(5);
     }
     buffer[n] = 0;
-    if (logger)
-    {
-        (*logger) ("listener: Read: ");
-        (*logger) (buffer);
-    }
+    LOG("listener: read: ")
+    LOG(buffer)
 
-    if (logger)
-    {
-        (*logger) ("listener: Writing response");
-    }
+    LOG("listener: Writing response")
+
     /* Write a response to the client */
     n = write(newsockfd, "I got your message", 18);
     if (n < 0)
     {
+        LOG("ERROR on write")
         close(newsockfd);
         close(sockfd);
         return(6);
     }
-    if (logger)
-    {
-        (*logger) ("listener: Closing socket");
-    }
+    LOG("listener: Closing socket")
+
     close(newsockfd);
     close(sockfd);
     return 0; 

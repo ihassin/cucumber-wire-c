@@ -9,6 +9,8 @@
 #include "port_tests.h"
 #endif
 
+#define LOG(m) { if (context->logger) (*context->logger) (m); }
+
 int tcp_client(wire_context *context);
 
 int dummy_listener(int port, wire_logger logger)
@@ -113,31 +115,21 @@ int tcp_client(wire_context *context)
     serverSocket = socket( PF_INET, SOCK_STREAM, IPPROTO_TCP );
 
     // connect to the server
-    if(context->logger)
-    {
-        (*context->logger) ("client: trying to connect");
-    }
+    LOG("client: trying to connect")
+
     if ( connect( serverSocket, (struct sockaddr *)&serverData, sizeof( serverData ) ) < 0 ) {
-        if(context->logger)
-        {
-            (*context->logger) ("client: cannot connect");
-        }
+        LOG("client: cannot connect")
         close( serverSocket );
         return(1);
     }
 
-    strncpy( buffer, "Hi", 3 );
+    strncpy( buffer, "hi", 3 );
 
-    if(context->logger)
-    {
-        (*context->logger) ("client: sending packet");
-    }
+    LOG("client: sending packet")
+
     if (send( serverSocket, buffer, strlen( buffer ), 0 ) <= 0)
     {
-        if(context->logger)
-        {
-            (*context->logger) ("client: cannot send");
-        }
+        LOG("client: cannot send")
         close( serverSocket );
         return(1);
     }
@@ -146,10 +138,7 @@ int tcp_client(wire_context *context)
     bytesReceived = recv( serverSocket, buffer, BUF_SIZE, 0 );
     if (bytesReceived <= 0)
     {
-        if(context->logger)
-        {
-            (*context->logger) ("client: cannot read");
-        }
+        LOG("client: cannot read")
         close( serverSocket );
         return(1);
     }
@@ -157,12 +146,11 @@ int tcp_client(wire_context *context)
     buffer[bytesReceived] = 0;
     if(context->logger)
     {
-        (*context->logger) ("client: got: ");
-        (*context->logger) (buffer);
+        LOG("client: got: ")
+        LOG(buffer)
     }
 
     close( serverSocket );
-
     return 0;
 }
 
