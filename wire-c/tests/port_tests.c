@@ -46,7 +46,6 @@ void listens_on_requested_port(void)
 {
 	context->port = 3901;
     context->listener = wire_listener_default;
-//    context->listener = dummy_listener;
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;
@@ -120,32 +119,30 @@ int tcp_client(wire_context *context)
         {
             (*context->logger) ("client: cannot connect\n");
         }
-      close( serverSocket );
-      return(1);
+        close( serverSocket );
+        return(1);
     }
-    else
-    {
-         strncpy( buffer, "Hi", 3 );
-         
-        if(context->logger)
-        {
-            (*context->logger) ("client: sending packet\n");
-        }
-         send( serverSocket, buffer, strlen( buffer ), 0 );
 
-         // wait to receive data from the server
-         bytesReceived = recv( serverSocket, buffer, BUF_SIZE, 0 );
-         
-         // terminate the bytes as a string and print the result
-         buffer[bytesReceived]= '\0';
-        if(context->logger)
-        {
-            (*context->logger) ("client: got: ");
-            (*context->logger) (buffer);
-        }
-          
-          close( serverSocket );
+    strncpy( buffer, "Hi", 3 );
+
+    if(context->logger)
+    {
+        (*context->logger) ("client: sending packet\n");
     }
+    send( serverSocket, buffer, strlen( buffer ), 0 );
+
+    // wait to receive data from the server
+    bytesReceived = recv( serverSocket, buffer, BUF_SIZE, 0 );
+
+    // terminate the bytes as a string and print the result
+    buffer[bytesReceived]= '\0';
+    if(context->logger)
+    {
+        (*context->logger) ("client: got: ");
+        (*context->logger) (buffer);
+    }
+
+    close( serverSocket );
 
     return 0;
 }

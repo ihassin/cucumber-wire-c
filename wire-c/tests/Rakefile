@@ -23,7 +23,7 @@ end
 objfiles = fileroots.map {|item| "obj/" + item + ".o"}
 
 file "#{EXEC}" => objfiles do
-	list = "cc -o #{EXEC} " +  objfiles.join(" ") + " #{LIB} > /dev/null"
+	list = "cc -o #{EXEC} " +  objfiles.join(" ") + " #{LIB} -lpthread > /dev/null"
     system "#{list}"
 end
 
