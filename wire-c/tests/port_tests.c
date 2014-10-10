@@ -9,6 +9,8 @@
 #include "port_tests.h"
 #endif
 
+int tcp_client(wire_context *context);
+
 int dummy_listener(int port, wire_logger logger)
 {
     (*logger) ("Dummy listener called\n");
@@ -39,8 +41,6 @@ void *thread_routine(void *data)
     int ret_val = (*context->listener) (context->port, context->logger);
     return(0);
 }
-
-int tcp_client(wire_context *context);
 
 void listens_on_requested_port(void)
 {
@@ -129,11 +129,27 @@ int tcp_client(wire_context *context)
     {
         (*context->logger) ("client: sending packet\n");
     }
-    send( serverSocket, buffer, strlen( buffer ), 0 );
+    if (send( serverSocket, buffer, strlen( buffer ), 0 ) <= 0)
+    {
+        if(context->logger)
+        {
+            (*context->logger) ("client: cannot send\n");
+        }
+        close( serverSocket );
+        return(1);
+    }
 
     // wait to receive data from the server
     bytesReceived = recv( serverSocket, buffer, BUF_SIZE, 0 );
-
+    if (bytesReceived <= 0)
+    {
+        if(context->logger)
+        {
+            (*context->logger) ("client: cannot read\n");
+        }
+        close( serverSocket );
+        return(1);
+    }
     // terminate the bytes as a string and print the result
     buffer[bytesReceived]= '\0';
     if(context->logger)
