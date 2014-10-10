@@ -12,11 +12,11 @@ int wire_listener_default(int port, wire_logger logger)
     socklen_t clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
-    int n;
+    int n, ret_val;
 
     if (logger)
     {
-        (*logger) ("listener: Allocating socket\n");
+        (*logger) ("listener: Allocating socket");
     }
     /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -28,32 +28,37 @@ int wire_listener_default(int port, wire_logger logger)
     /* Initialize socket structure */
     bzero((char *) &serv_addr, sizeof(serv_addr));
 
-    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_family = PF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
     serv_addr.sin_port = htons(port);
  
     if (logger)
     {
-        (*logger) ("listener: Binding socket\n");
+        (*logger) ("listener: Binding socket");
     }
     /* Now bind the host address using bind() call.*/
-    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+    ret_val = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    if (ret_val < 0)
     {
-         //perror("ERROR on binding");
+        if (logger)
+        {
+            (*logger) ("listener: Cannot bind");
+        }
+        printf("cannot bind: %d\n", ret_val);
         return(2);
     }
 
     if (logger)
     {
-        (*logger) ("listener: Listening on socket\n");
+        (*logger) ("listener: Listening on socket");
     }
     /* Now start listening for the clients, here process will
     * go in sleep mode and will wait for the incoming connection
     */
-    int ret_val = listen(sockfd, 5);
+    ret_val = listen(sockfd, 5);
     if (ret_val < 0)
     {
-        close(newsockfd);
+        close(sockfd);
         //perror("ERROR reading from socket");
         return(3);
     }
@@ -61,27 +66,28 @@ int wire_listener_default(int port, wire_logger logger)
 
     if (logger)
     {
-        (*logger) ("listener: Accepting connection\n");
+        (*logger) ("listener: Accepting connection");
     }
     /* Accept actual connection from the client */
     newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
     if (newsockfd < 0) 
     {
         close(newsockfd);
+        close(sockfd);
         //perror("ERROR on accept");
         return(4);
     }
     if (logger)
     {
-        (*logger) ("listener: Reading data\n");
+        (*logger) ("listener: Reading data");
     }
     /* If connection is established then start communicating */
     bzero(buffer, sizeof(buffer));
-    n = read( newsockfd,buffer, sizeof(buffer)-1 );
+    n = read( newsockfd,buffer, sizeof(buffer) - 1 );
     if (n < 0)
     {
         close(newsockfd);
-        //perror("ERROR reading from socket");
+        close(sockfd);
         return(5);
     }
     buffer[n] = 0;
@@ -93,20 +99,21 @@ int wire_listener_default(int port, wire_logger logger)
 
     if (logger)
     {
-        (*logger) ("listener: Writing response\n");
+        (*logger) ("listener: Writing response");
     }
     /* Write a response to the client */
     n = write(newsockfd, "I got your message", 18);
     if (n < 0)
     {
         close(newsockfd);
-        //perror("ERROR writing to socket");
+        close(sockfd);
         return(6);
     }
     if (logger)
     {
-        (*logger) ("listener: Closing socket\n");
+        (*logger) ("listener: Closing socket");
     }
     close(newsockfd);
+    close(sockfd);
     return 0; 
 }

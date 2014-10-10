@@ -13,7 +13,7 @@ int tcp_client(wire_context *context);
 
 int dummy_listener(int port, wire_logger logger)
 {
-    (*logger) ("Dummy listener called\n");
+    (*logger) ("Dummy listener called");
     return(0);
 }
 
@@ -39,6 +39,7 @@ void *thread_routine(void *data)
 {
     wire_context *context = (wire_context *) data;
     int ret_val = (*context->listener) (context->port, context->logger);
+    pthread_exit(data);
     return(0);
 }
 
@@ -66,7 +67,10 @@ void listens_on_requested_port(void)
          // Report an error.
     }
 
+    sleep(1);
     int ret_val = tcp_client(context);
+    void *status;
+    pthread_join(posixThreadID, &status);
     TEST_ASSERT_EQUAL(0, ret_val);
 }
 
@@ -112,12 +116,12 @@ int tcp_client(wire_context *context)
     // connect to the server
     if(context->logger)
     {
-        (*context->logger) ("client: trying to connect\n");
+        (*context->logger) ("client: trying to connect");
     }
     if ( connect( serverSocket, (struct sockaddr *)&serverData, sizeof( serverData ) ) < 0 ) {
         if(context->logger)
         {
-            (*context->logger) ("client: cannot connect\n");
+            (*context->logger) ("client: cannot connect");
         }
         close( serverSocket );
         return(1);
@@ -127,13 +131,13 @@ int tcp_client(wire_context *context)
 
     if(context->logger)
     {
-        (*context->logger) ("client: sending packet\n");
+        (*context->logger) ("client: sending packet");
     }
     if (send( serverSocket, buffer, strlen( buffer ), 0 ) <= 0)
     {
         if(context->logger)
         {
-            (*context->logger) ("client: cannot send\n");
+            (*context->logger) ("client: cannot send");
         }
         close( serverSocket );
         return(1);
@@ -145,13 +149,13 @@ int tcp_client(wire_context *context)
     {
         if(context->logger)
         {
-            (*context->logger) ("client: cannot read\n");
+            (*context->logger) ("client: cannot read");
         }
         close( serverSocket );
         return(1);
     }
     // terminate the bytes as a string and print the result
-    buffer[bytesReceived]= '\0';
+    buffer[bytesReceived] = 0;
     if(context->logger)
     {
         (*context->logger) ("client: got: ");
