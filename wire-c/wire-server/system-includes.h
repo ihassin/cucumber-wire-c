@@ -7,5 +7,8 @@
 #include <stdio.h>
 #include <memory.h>
 #include <sys/types.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
 
 #endif

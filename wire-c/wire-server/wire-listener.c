@@ -16,7 +16,7 @@ int wire_listener_default(int port, wire_logger logger)
 
     if (logger)
     {
-        (*logger) ("Allocating socket\n");
+        (*logger) ("listener: Allocating socket\n");
     }
     /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -34,7 +34,7 @@ int wire_listener_default(int port, wire_logger logger)
  
     if (logger)
     {
-        (*logger) ("Binding socket\n");
+        (*logger) ("listener: Binding socket\n");
     }
     /* Now bind the host address using bind() call.*/
     if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
@@ -45,7 +45,7 @@ int wire_listener_default(int port, wire_logger logger)
 
     if (logger)
     {
-        (*logger) ("Listening on socket\n");
+        (*logger) ("listener: Listening on socket\n");
     }
     /* Now start listening for the clients, here process will
     * go in sleep mode and will wait for the incoming connection
@@ -61,7 +61,7 @@ int wire_listener_default(int port, wire_logger logger)
 
     if (logger)
     {
-        (*logger) ("Accepting connection\n");
+        (*logger) ("listener: Accepting connection\n");
     }
     /* Accept actual connection from the client */
     newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
@@ -73,7 +73,7 @@ int wire_listener_default(int port, wire_logger logger)
     }
     if (logger)
     {
-        (*logger) ("Reading data\n");
+        (*logger) ("listener: Reading data\n");
     }
     /* If connection is established then start communicating */
     bzero(buffer, sizeof(buffer));
@@ -85,11 +85,15 @@ int wire_listener_default(int port, wire_logger logger)
         return(5);
     }
     buffer[n] = 0;
-    printf("Here is the message: %s\n", buffer);
+    if (logger)
+    {
+        (*logger) ("listener: Read: ");
+        (*logger) (buffer);
+    }
 
     if (logger)
     {
-        (*logger) ("Writing response\n");
+        (*logger) ("listener: Writing response\n");
     }
     /* Write a response to the client */
     n = write(newsockfd, "I got your message", 18);
@@ -101,7 +105,7 @@ int wire_listener_default(int port, wire_logger logger)
     }
     if (logger)
     {
-        (*logger) ("Closing socket\n");
+        (*logger) ("listener: Closing socket\n");
     }
     close(newsockfd);
     return 0; 
