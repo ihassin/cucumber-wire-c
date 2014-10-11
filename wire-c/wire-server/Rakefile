@@ -2,47 +2,48 @@
 	Rakefile to make the wire-server library and executable
 =end
 
+C_FLAGS = "-I."
+
 EXEC 	= "./bin/wire.out"
 LIB 	= "./lib/wire.a"
 
 task :default => [:build]
 
-heads = %w(system-includes.h wire-server.h)
-fileroots = %w(main wire-server wire-listener)
+header_files = %w(system-includes.h wire-server.h)
+file_roots = %w(main wire-server wire-listener)
 
-fileroots.each do |element|
-    file "obj/#{element}.o" => heads + ["#{element}.c"] do
+file_roots.each do |element|
+    file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do
         puts "Compiling #{element}"
-        system "cc -c #{element}.c -o obj/#{element}.o"
+        system "cc #{C_FLAGS} -c #{element}.c -o obj/#{File.basename(element)}.o"
     end
 end
 
-objfiles = fileroots.map {|item| "obj/" + item + ".o"}
+obj_files = file_roots.map {|item| "obj/" + File.basename(item) + ".o"}
 
-file "#{LIB}" =>  objfiles do
-	puts "Building library"
-	system "ar rvs #{LIB} " + objfiles.join(" ") + "> /dev/null"
+file "#{LIB}" =>  obj_files do
+	puts "Creating #{LIB} lib"
+	system "ar crs #{LIB} " + obj_files.join(" ") + "> /dev/null"
 end
 
-desc "Builds the listener executable"
 file "#{EXEC}" => "#{LIB}" do
-	puts "Linking"
+	puts "Linking wire"
     system "cc -o #{EXEC} #{LIB}"
 end
 
 desc "Compiles and links the wire-server executable"
 task :build => "#{EXEC}" do
-	puts "#{EXEC} is ready"
+	puts "#{EXEC} built."
 end
 
 desc "Removes artefacts"
 task :clean do 
-	system "rm obj/* > /dev/null"
-	system "rm lib/* > /dev/null"
-	system "rm bin/* > /dev/null"
+	system "rm -f obj/*"
+	system "rm -f lib/*"
+	system "rm -f bin/*"
 end
 
-desc "Runs the server"
+desc "Runs the wire"
 task :run do 
 	system "#{EXEC} 3901"
 end
