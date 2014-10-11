@@ -8,39 +8,41 @@ C_FLAGS = "-I. -I../../unity-master/src -I#{WIRE_PATH}"
 EXEC = "./bin/main.out"
 LIB = "#{WIRE_PATH}/lib/wire.a"
 
-task :default => [:build, :run]
+header_files = %w(context.h port_tests.h misc_tests.h)
+file_roots = %w(main ../../unity-master/src/unity context port_tests misc_tests)
 
-heads = %w(context.h port_tests.h misc_tests.h)
-fileroots = %w(main unity context port_tests misc_tests)
-
-fileroots.each do |element|
-    file "obj/#{element}.o" => heads + ["#{element}.c"] do
+file_roots.each do |element|
+    file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do
         puts "Compiling #{element}"
-        system "cc #{C_FLAGS} -c #{element}.c -o obj/#{element}.o"
+        system "cc #{C_FLAGS} -c #{element}.c -o obj/#{File.basename(element)}.o"
     end
 end
 
-objfiles = fileroots.map {|item| "obj/" + item + ".o"}
+obj_files = file_roots.map {|item| "obj/" + File.basename(item) + ".o"}
 
-file "#{EXEC}" => objfiles do
-	list = "cc -o #{EXEC} " +  objfiles.join(" ") + " #{LIB} -lpthread > /dev/null"
+desc "Default task will build and run the tests"
+task :default => [:build, :run]
+
+file "#{EXEC}" => obj_files do
+	puts "Linking #{EXEC}"
+	list = "cc -o #{EXEC} " +  obj_files.join(" ") + " #{LIB} -lpthread > /dev/null"
     system "#{list}"
 end
 
 desc "Compiles and links the test program"
 task :build => "#{EXEC}" do
-	puts "#{EXEC} is ready"
+	puts "#{EXEC} built."
 end
 
 desc "Runs the test program"
 task :run => :build do
 	puts "Running tests"
 	ret_val = system("#{EXEC}")
-	fail unless ret_val #puts "ret #{ret_val}: #{$?.exitstatus}"
+	fail unless ret_val
 end
 
 desc "Removes artefacts"
 task :clean do 
-	system "rm obj/* > /dev/null"
-	system "rm bin/* > /dev/null"
+	system "rm -f obj/* > /dev/null"
+	system "rm -f bin/* > /dev/null"
 end
