@@ -15,7 +15,7 @@
 
 #define LOG(m) { if (context->logger) (*context->logger) (m); }
 
-int dummy_listener(int port, wire_logger logger)
+int dummy_listener(int port, wire_logger logger, int loops)
 {
     if(logger)
     {
@@ -47,19 +47,19 @@ void rejects_zero_port_number(void)
 void *client_thread_routine(void *data)
 {
     wire_context *context = (wire_context *) data;
-    int ret_val = (*context->listener) (context->port, context->logger);
+    int ret_val = (*context->listener) (context->port, context->logger, context->loops);
     pthread_exit(data);
     return(0);
 }
 
 char *injector(void)
 {
-    return("hi");
+    return("hi\n");
 }
 
 char *dejector(void)
 {
-    return("[\"fail\"]");
+    return("[\"fail\"]\n");
 }
 
 void listens_on_requested_port(void)
@@ -69,6 +69,7 @@ void listens_on_requested_port(void)
     context->packet_injector = injector;
     context->packet_dejector = dejector;
     context->logger = 0;
+    context->loops = 1;
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;

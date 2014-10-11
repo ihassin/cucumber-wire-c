@@ -11,12 +11,12 @@
 
 char *end_scenario_injector(void)
 {
-    return("[\"end_scenario\"]");
+    return("[\"end_scenario\"]\n");
 }
 
 char *end_scenario_dejector(void)
 {
-    return("[\"success\"]");
+    return("[\"success\", []]\n");
 }
 
 void recognises_end_scenario(void)
@@ -26,6 +26,7 @@ void recognises_end_scenario(void)
 	context->port = 3901;
     context->listener = wire_listener_default;
     context->logger = 0;
+    context->loops = 1;
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;

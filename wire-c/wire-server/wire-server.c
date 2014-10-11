@@ -25,7 +25,7 @@ int wire_server(wire_context *context)
 		(*context->logger) ("wire_server: Started\n");
 	}
 
-	ret_val = (*context->listener) (context->port, context->logger);
+	ret_val = (*context->listener) (context->port, context->logger, context->loops);
 
 	if(context->logger)
 	{

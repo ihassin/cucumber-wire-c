@@ -19,7 +19,8 @@ int main(int argc, char **argv)
 	context = malloc(sizeof(context));
 	context->port = port;
 	context->logger = my_logger;
-	context->listener = 0;
+	context->listener = wire_listener_default;
+	context->loops = -1;
 
 	ret_val = wire_server(context);
 	return(ret_val);

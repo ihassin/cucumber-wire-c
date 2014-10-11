@@ -11,12 +11,12 @@
 
 char *begin_scenario_injector(void)
 {
-    return("[\"begin_scenario\"]");
+    return("[\"begin_scenario\"]\n");
 }
 
 char *begin_scenario_dejector(void)
 {
-    return("[\"success\"]");
+    return("[\"success\", []]\n");
 }
 
 void recognises_begin_scenario(void)
@@ -26,6 +26,8 @@ void recognises_begin_scenario(void)
 	context->port = 3901;
     context->listener = wire_listener_default;
     context->logger = 0;
+    context->loops = 1;
+
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;
