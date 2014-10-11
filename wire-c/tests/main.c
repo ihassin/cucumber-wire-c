@@ -4,14 +4,8 @@
 //  Created by Itamar on 10/5/14.
 //  Copyright (c) 2014 InContext. All rights reserved.
 //
-#include "unity.h"
-
-#ifndef __PORT_TESTS_H__
-#include "port_tests.h"
-#endif
-
-#ifndef __MISC_TESTS_H__
-#include "misc_tests.h"
+#ifndef __UNITY_TESTS_H__
+#include "unity_tests.h"
 #endif
 
 int main(void)
@@ -28,5 +22,10 @@ int main(void)
 
     // Listening on requested port
     RUN_TEST(listens_on_requested_port);
+
+    // Protocol tests
+    RUN_TEST(recognises_begin_scenario);
+    RUN_TEST(recognises_end_scenario);
+    
     return UnityEnd();
 }

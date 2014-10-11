@@ -6,7 +6,19 @@
 #include "wire-server.h"
 #endif
 
+#ifndef __WIRE_LISTENER_H__
+#include "wire-listener.h"
+#endif
+
 #define LOG(m) { if (logger) (*logger) (m); }
+
+#define kBeginScenario  "[\"begin_scenario\"]"
+#define kEndScenario    "[\"end_scenario\"]"
+
+static ProtocolPacket protocolPackets[] = {
+    kBeginScenario, 
+    kEndScenario
+};
 
 int wire_listener_default(int port, wire_logger logger)
 {
@@ -76,7 +88,7 @@ int wire_listener_default(int port, wire_logger logger)
 
     /* If connection is established then start communicating */
     bzero(buffer, sizeof(buffer));
-    n = read( newsockfd,buffer, sizeof(buffer) - 1 );
+    n = read(newsockfd,buffer, sizeof(buffer) - 1);
     if (n < 0)
     {
         LOG("ERROR on read")
@@ -88,11 +100,37 @@ int wire_listener_default(int port, wire_logger logger)
     LOG("listener: read: ")
     LOG(buffer)
 
+    // Process token here
+    int found;
+    int arrayLen = sizeof(protocolPackets)/sizeof(ProtocolPacket);
+    char *closing = strstr(buffer, "]");
+    if (closing)
+    {
+        *(closing + 1) = 0;
+    }
+    for(found = 0; found < arrayLen; found++)
+    {
+        char *packet = protocolPackets[found].packet;
+        if(strcmp(buffer, packet) == 0)
+        {
+            break;
+        }
+    }
+    if(found < arrayLen)
+    {
+        strcpy(buffer, "[\"success\"]");
+    }
+    else
+    {
+        strcpy(buffer, "[\"fail\"]");
+    }
     LOG("listener: Writing response")
+    LOG(buffer)
 
     /* Write a response to the client */
-    n = write(newsockfd, "I got your message", 18);
-    if (n < 0)
+    int len = strlen(buffer);
+    n = write(newsockfd, buffer, len);
+    if (n != len)
     {
         LOG("ERROR on write")
         close(newsockfd);

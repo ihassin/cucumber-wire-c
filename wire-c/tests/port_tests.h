@@ -1,8 +1,6 @@
 #ifndef __PORT_TESTS_H__
 #define __PORT_TESTS_H__
 
-#include "unity.h"
-
 #ifndef __CONTEXT_H__
 #include "context.h"
 #endif

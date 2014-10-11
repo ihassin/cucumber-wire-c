@@ -9,7 +9,7 @@ LIB 	= "./lib/wire.a"
 
 task :default => [:build]
 
-header_files = %w(system-includes.h wire-server.h)
+header_files = %w(system-includes.h wire-server.h wire-listener.h)
 file_roots = %w(main wire-server wire-listener)
 
 file_roots.each do |element|
