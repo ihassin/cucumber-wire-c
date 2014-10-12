@@ -3,6 +3,6 @@ compiler:
   - gcc
 script: 
   - cd wire-c/wire-server
-  - rake clean build run
+  - rake build
   - cd ../tests
-  - rake clean build run
+  - rake build run
