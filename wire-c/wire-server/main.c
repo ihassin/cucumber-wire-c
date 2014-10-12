@@ -12,12 +12,11 @@ void my_logger(char *log)
 
 int main(int argc, char **argv)
 {
-	int port = 3901;
 	int ret_val;
-	wire_context *context = 0;
+	wire_context *context;
 
 	context = malloc(sizeof(context));
-	context->port = port;
+	context->port = 3901;
 	context->logger = my_logger;
 	context->listener = wire_listener_default;
 	context->single_scenario = 1;

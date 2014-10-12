@@ -7,5 +7,5 @@ script:
   - rake clean build run
   - cd ../tests
   - rake clean build
-  - ./bin/main.out 3901 0 &
+  - sh ./bin/main.out 3901 1
   - cucumber
