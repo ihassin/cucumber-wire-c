@@ -10,3 +10,7 @@ script:
   - rake clean
   - rake build
   - rake run
+  - gem install cucumber
+  - cucumber
+  
+
