@@ -6,3 +6,4 @@ script:
   - rake build
   - cd ../tests
   - rake build run
+  - ./play.sh
