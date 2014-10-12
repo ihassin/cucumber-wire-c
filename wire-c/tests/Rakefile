@@ -3,6 +3,7 @@
 =end
 
 WIRE_PATH="../wire-server"
+COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage"
 C_FLAGS = "-Werror -I. -I../../unity-master/src -I#{WIRE_PATH}"
 
 EXEC = "./bin/main.out"
@@ -35,7 +36,7 @@ task :build => "#{EXEC}" do
 end
 
 desc "Runs the test program"
-task :run => :build do
+task :run => [:build] do
 	puts "Running tests"
 	ret_val = system("#{EXEC}")
 	fail unless ret_val

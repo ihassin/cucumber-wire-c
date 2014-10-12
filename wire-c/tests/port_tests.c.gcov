@@ -1,0 +1,102 @@
+        -:    0:Source:port_tests.c
+        -:    0:Graph:obj/port_tests.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:#ifndef __SYSTEM_INCLUDES_H__
+        -:    2:#include "system-includes.h"
+        -:    3:#endif
+        -:    4:
+        -:    5:#include <pthread.h>
+        -:    6:#include <assert.h>
+        -:    7:
+        -:    8:#ifndef __UNITY_TESTS_H__
+        -:    9:#include "unity_tests.h"
+        -:   10:#endif
+        -:   11:
+        -:   12:#ifndef __TCP_CLIENT_H__
+        -:   13:#include "tcp_client.h"
+        -:   14:#endif
+        -:   15:
+        -:   16:#define LOG(m) { if (context->logger) (*context->logger) (m); }
+        -:   17:
+        -:   18:int dummy_listener(wire_context *context)
+        -:   19:{
+    #####:   20:    LOG("Dummy listener called")
+    #####:   21:    return(0);
+        -:   22:}
+        -:   23:
+        -:   24:void accepts_valid_port_number(void)
+        -:   25:{
+    #####:   26:	context->listener = dummy_listener;
+    #####:   27:    context->logger = 0;
+    #####:   28:    TEST_ASSERT_EQUAL(0, wire_server(context));
+    #####:   29:}
+        -:   30:
+        -:   31:void rejects_negative_port_number(void)
+        -:   32:{
+    #####:   33:	context->port = -3901;
+    #####:   34:    TEST_ASSERT_EQUAL(1, wire_server(context));
+    #####:   35:}
+        -:   36:
+        -:   37:void rejects_zero_port_number(void)
+        -:   38:{
+    #####:   39:	context->port = 0;
+    #####:   40:    context->logger = 0;
+    #####:   41:    TEST_ASSERT_EQUAL(1, wire_server(context));
+    #####:   42:}
+        -:   43:
+        -:   44:void *client_thread_routine(void *data)
+        -:   45:{
+    #####:   46:    wire_context *context = (wire_context *) data;
+    #####:   47:    int ret_val = (*context->listener) (context);
+    #####:   48:    pthread_exit(data);
+        -:   49:    return(0);
+    #####:   50:}
+        -:   51:
+        -:   52:char *injector(wire_context *context)
+        -:   53:{
+    #####:   54:    return("hi\n");
+        -:   55:}
+        -:   56:
+        -:   57:char *dejector(wire_context *context)
+        -:   58:{
+    #####:   59:    return("[\"fail\",{\"message\":\"Cucumber sent us an unknown command\"}]\n");
+        -:   60:}
+        -:   61:
+        -:   62:void listens_on_requested_port(void)
+        -:   63:{
+    #####:   64:	context->port = 3901;
+    #####:   65:    context->listener = wire_listener_default;
+    #####:   66:    context->packet_injector = injector;
+    #####:   67:    context->packet_dejector = dejector;
+    #####:   68:    context->logger = 0;
+    #####:   69:    context->single_scenario = 1;
+    #####:   70:    context->begin_callback     = 0;
+    #####:   71:    context->end_callback       = 0;
+        -:   72:
+        -:   73:    // Create the thread using POSIX routines.
+        -:   74:    pthread_attr_t  attr;
+        -:   75:    pthread_t       posixThreadID;
+        -:   76:    int             ret_val;
+        -:   77: 
+    #####:   78:    ret_val = pthread_attr_init(&attr);
+    #####:   79:    assert(!ret_val);
+        -:   80:
+    #####:   81:    ret_val = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+    #####:   82:    assert(!ret_val);
+        -:   83: 
+    #####:   84:    int threadError = pthread_create(&posixThreadID, &attr, &client_thread_routine, context);
+        -:   85: 
+    #####:   86:    ret_val = pthread_attr_destroy(&attr);
+    #####:   87:    assert(!ret_val);
+    #####:   88:    if (threadError != 0)
+        -:   89:    {
+        -:   90:         // Report an error.
+    #####:   91:    }
+        -:   92:
+    #####:   93:    ret_val = tcp_client(context);
+        -:   94:    void *status;
+    #####:   95:    pthread_join(posixThreadID, &status);
+    #####:   96:    TEST_ASSERT_EQUAL(0, ret_val);
+    #####:   97:}

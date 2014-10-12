@@ -13,7 +13,7 @@
 
 int wire_server(wire_context *context)
 {
-	int ret_val = 0;
+	int retVal = 0;
 
 	if (context->port <= 0)
 	{
@@ -25,13 +25,13 @@ int wire_server(wire_context *context)
 		(*context->logger) ("wire_server: Started\n");
 	}
 
-	ret_val = (*context->listener) (context);
+	retVal = (*context->listener) (context);
 
 	if(context->logger)
 	{
 		(*context->logger) ("wire_server: Shut down\n");
 	}
-	return(ret_val);
+	return(retVal);
 }
 
 char *wire_version()

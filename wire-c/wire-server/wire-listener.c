@@ -10,7 +10,7 @@
 #include "wire-listener.h"
 #endif
 
-#define LOG(m) { if (context->logger) (*context->logger) (m); }
+#define LOG(m) { if (context->logger && m) (*context->logger) (m); }
 
 #define kBeginScenario  "[\"begin_scenario\"]"
 #define kEndScenario    "[\"end_scenario\"]"
@@ -26,7 +26,7 @@ static ProtocolPacket protocolPackets[] = {
     kInvoke
 };
 
-int getBuffer(int socket, char *buffer, size_t len)
+int getRequest(int socket, char *buffer, size_t len)
 {
     bzero(buffer, len);
 
@@ -66,15 +66,68 @@ char *handle_callback(wire_feature_callback callback, wire_context *context)
     return "[\"success\"]\n";
 }
 
+int handleRequest(char *buffer, wire_context *context)
+{
+    int found;
+    int arrayLen = sizeof(protocolPackets)/sizeof(ProtocolPacket);
+
+    for(found = 0; found < arrayLen; found++)
+    {
+        char *packet = protocolPackets[found].packet;
+        if(strstr(buffer, packet))
+        {
+            break;
+        }
+    }
+    if(found < arrayLen)
+    {
+        switch(found)
+        {
+            case 0:                 // begin_scenario
+                strcpy(buffer, handle_callback(context->begin_callback, context));
+                break;
+
+            case 1:                 // end_scenario
+                strcpy(buffer, handle_callback(context->end_callback, context));
+                break;
+
+            case 2:
+                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+                break;
+
+            default:
+                strcpy(buffer, "[\"success\", []]\n");
+                break;                
+        }
+    }
+    else
+    {
+        strcpy(buffer, "[\"fail\",{\"message\":\"Cucumber sent us an unknown command\"}]\n");
+    }
+    LOG(buffer)
+    return(0);
+}
+
+void cleanup(int socket1, int socket2)
+{
+    close(socket1);
+    close(socket2);
+}
+
+int acceptConnection(int sockfd)
+{
+    struct sockaddr_in cli_addr;
+
+    socklen_t clilen = sizeof(cli_addr);
+    return accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+}
+
 int wire_listener_default(wire_context *context)
 {
     int sockfd, newsockfd;
-    socklen_t clilen;
     char buffer[1024];
-    struct sockaddr_in serv_addr, cli_addr;
+    struct sockaddr_in serv_addr;
     int n, ret_val;
-
-    LOG("listener: Allocating socket")
 
     /* First call to socket() function */
     sockfd = socket(PF_INET, SOCK_STREAM, 0);
@@ -112,21 +165,17 @@ int wire_listener_default(wire_context *context)
         return(3);
     }
 
-    LOG ("listener: Accepting connection");
-
-    clilen = sizeof(cli_addr);
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+    newsockfd = acceptConnection(sockfd);
     if (newsockfd < 0) 
     {
-        close(newsockfd);
-        close(sockfd);
+        cleanup(newsockfd, sockfd);
         LOG("ERROR on accept")
         return(4);
     }
 
     while(1)
     {
-        ret_val = getBuffer(newsockfd, buffer, sizeof(buffer));
+        ret_val = getRequest(newsockfd, buffer, sizeof(buffer));
         if (ret_val <= 0)
         {
             close(newsockfd);
@@ -134,73 +183,29 @@ int wire_listener_default(wire_context *context)
             {
                 break;
             }
-            clilen = sizeof(cli_addr);
-            LOG("listener: Accepting connection")
-
-            newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+            newsockfd = acceptConnection(sockfd);
             if (newsockfd < 0) 
             {
-                close(newsockfd);
-                close(sockfd);
-                LOG("ERROR on accept")
-                return(4);
+                cleanup(newsockfd, sockfd);
+                LOG("ERROR on accept-2")
+                return(5);
             }
             continue;
         }
         LOG(buffer)
 
-        int found;
-        int arrayLen = sizeof(protocolPackets)/sizeof(ProtocolPacket);
-
-        for(found = 0; found < arrayLen; found++)
-        {
-            char *packet = protocolPackets[found].packet;
-            if(strstr(buffer, packet))
-            {
-                break;
-            }
-        }
-        if(found < arrayLen)
-        {
-            switch(found)
-            {
-                case 0:                 // begin_scenario
-                    strcpy(buffer, handle_callback(context->begin_callback, context));
-                    break;
-
-                case 1:                 // end_scenario
-                    strcpy(buffer, handle_callback(context->end_callback, context));
-                    break;
-
-                case 2:
-                    strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
-                    break;
-
-                default:
-                    strcpy(buffer, "[\"success\", []]\n");
-                    break;                
-            }
-        }
-        else
-        {
-            strcpy(buffer, "[\"fail\",{\"message\":\"Cucumber sent us an unknown command\"}]\n");
-        }
-        LOG(buffer)
+        handleRequest(buffer, context);
 
         /* Write a response to the client */
         int len = strlen(buffer);
         n = send(newsockfd, buffer, len, 0);
         if (n != len)
         {
-            LOG("ERROR on write")
-            close(newsockfd);
-            close(sockfd);
+            cleanup(newsockfd, sockfd);
+            LOG ("ERROR on write")
             return(6);
         }
     }
-    LOG("listener: Closing socket")
-
-    close(newsockfd);
-    close(sockfd);
+    cleanup(newsockfd, sockfd);
     return 0; 
 }
