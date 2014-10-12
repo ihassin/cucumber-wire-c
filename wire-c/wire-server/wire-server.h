@@ -15,7 +15,7 @@ typedef char *(*wire_packet_injector) (void);
 typedef struct wire_context
 {
 	int port;
-	int loops;
+	int single_scenario;
 	wire_logger logger;
 	wire_listener listener;
 	wire_packet_injector packet_injector;

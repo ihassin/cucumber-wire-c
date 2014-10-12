@@ -47,7 +47,7 @@ void rejects_zero_port_number(void)
 void *client_thread_routine(void *data)
 {
     wire_context *context = (wire_context *) data;
-    int ret_val = (*context->listener) (context->port, context->logger, context->loops);
+    int ret_val = (*context->listener) (context->port, context->logger, context->single_scenario);
     pthread_exit(data);
     return(0);
 }
@@ -69,7 +69,7 @@ void listens_on_requested_port(void)
     context->packet_injector = injector;
     context->packet_dejector = dejector;
     context->logger = 0;
-    context->loops = 1;
+    context->single_scenario = 1;
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;

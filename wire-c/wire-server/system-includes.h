@@ -13,5 +13,6 @@
 #include <time.h>
 #include <arpa/inet.h>
 #include <errno.h>
+#include <netinet/tcp.h>
 
 #endif

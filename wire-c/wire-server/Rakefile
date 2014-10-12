@@ -15,7 +15,7 @@ file_roots = %w(main wire-server wire-listener)
 file_roots.each do |element|
     file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do
         puts "Compiling #{element}"
-        system "cc #{C_FLAGS} -c #{element}.c -o obj/#{File.basename(element)}.o"
+        fail unless system "cc #{C_FLAGS} -c #{element}.c -o obj/#{File.basename(element)}.o"
     end
 end
 

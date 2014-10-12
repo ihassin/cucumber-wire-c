@@ -23,9 +23,5 @@ int main(void)
     // Listening on requested port
     RUN_TEST(listens_on_requested_port);
 
-    // Protocol tests
-    RUN_TEST(recognises_begin_scenario);
-    RUN_TEST(recognises_end_scenario);
-    
     return UnityEnd();
 }

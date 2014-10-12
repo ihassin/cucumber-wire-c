@@ -24,7 +24,38 @@ static ProtocolPacket protocolPackets[] = {
     kSnippet
 };
 
-int wire_listener_default(int port, wire_logger logger, int loops)
+int getBuffer(int socket, char *buffer, size_t len)
+{
+    bzero(buffer, len);
+
+    int count = len;
+    int rc;
+
+    while(count > 0)
+    {
+        rc = recv(socket, buffer, 1, 0);
+        if (rc < 0)
+        {
+            return(-1);
+        }
+        if(rc == 0)
+        {
+            len -= count;
+            break;
+        }
+        if(rc == 0 || *buffer == '\n')
+        {
+            *buffer = 0;
+            len -= count;
+            break;
+        }
+        buffer += rc;
+        count -= rc;
+    }
+    return(len);
+}
+
+int wire_listener_default(int port, wire_logger logger, int single_scenario)
 {
     int sockfd, newsockfd;
     socklen_t clilen;
@@ -69,13 +100,12 @@ int wire_listener_default(int port, wire_logger logger, int loops)
         LOG("ERROR reading from socket")
         return(3);
     }
-    clilen = sizeof(cli_addr);
 
     if (logger)
     {
         (*logger) ("listener: Accepting connection");
     }
-    /* Accept actual connection from the client */
+    clilen = sizeof(cli_addr);
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
     if (newsockfd < 0) 
     {
@@ -84,31 +114,32 @@ int wire_listener_default(int port, wire_logger logger, int loops)
         LOG("ERROR on accept")
         return(4);
     }
-    LOG("listener: Reading data")
 
-    while(loops--)
+    while(1)
     {
-        bzero(buffer, sizeof(buffer));
-        n = read(newsockfd,buffer, sizeof(buffer) - 1);
-        if (n < 0)
+        ret_val = getBuffer(newsockfd, buffer, sizeof(buffer));
+        if (ret_val <= 0)
         {
-            LOG("ERROR on read")
             close(newsockfd);
-            close(sockfd);
-            return(5);
-        }
-        buffer[n] = 0;
-        char *closing = strstr(buffer, "\n");
-        if (closing)
-        {
-            *(closing) = 0;
-        }
-        if(!*buffer)
-        {
-            loops++;
+            if(single_scenario)
+            {
+                break;
+            }
+            clilen = sizeof(cli_addr);
+            if (logger)
+            {
+                (*logger) ("listener: Accepting connection");
+            }
+            newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+            if (newsockfd < 0) 
+            {
+                close(newsockfd);
+                close(sockfd);
+                LOG("ERROR on accept")
+                return(4);
+            }
             continue;
         }
-
         LOG(buffer)
 
         int found;
@@ -134,7 +165,7 @@ int wire_listener_default(int port, wire_logger logger, int loops)
 
         /* Write a response to the client */
         int len = strlen(buffer);
-        n = write(newsockfd, buffer, len);
+        n = send(newsockfd, buffer, len, 0);
         if (n != len)
         {
             LOG("ERROR on write")

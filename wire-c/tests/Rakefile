@@ -8,8 +8,8 @@ C_FLAGS = "-I. -I../../unity-master/src -I#{WIRE_PATH}"
 EXEC = "./bin/main.out"
 LIB = "#{WIRE_PATH}/lib/wire.a"
 
-header_files = %w(context.h port_tests.h misc_tests.h begin_scenario_tests.h unity_tests.h tcp_client.h end_scenario_tests.h)
-file_roots = %w(main ../../unity-master/src/unity context port_tests misc_tests begin_scenario_tests tcp_client end_scenario_tests)
+header_files = %w(context.h port_tests.h misc_tests.h unity_tests.h tcp_client.h)
+file_roots = %w(main ../../unity-master/src/unity context port_tests misc_tests tcp_client)
 
 file_roots.each do |element|
     file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do
