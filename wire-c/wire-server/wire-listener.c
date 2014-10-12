@@ -16,12 +16,14 @@
 #define kEndScenario    "[\"end_scenario\"]"
 #define kStepMatch      "[\"step_matches\""
 #define kSnippet        "[\"snippet_text\""
+#define kInvoke         "[\"invoke\""
 
 static ProtocolPacket protocolPackets[] = {
     kBeginScenario, 
     kEndScenario,
     kStepMatch,
-    kSnippet
+    kSnippet,
+    kInvoke
 };
 
 int getBuffer(int socket, char *buffer, size_t len)
@@ -155,7 +157,14 @@ int wire_listener_default(int port, wire_logger logger, int single_scenario)
         }
         if(found < arrayLen)
         {
-            strcpy(buffer, "[\"success\", []]\n");
+            if(found == 2)
+            {
+                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+            }
+            else
+            {
+                strcpy(buffer, "[\"success\", []]\n");
+            }
         }
         else
         {
