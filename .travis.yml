@@ -6,5 +6,6 @@ script:
   - cd wire-c/wire-server
   - rake clean build run
   - cd ../tests
-  - rake clean build run
+  - rake clean build
+  - ./bin/main.out 3901 0 &
   - cucumber

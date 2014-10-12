@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 	context->port = port;
 	context->logger = my_logger;
 	context->listener = wire_listener_default;
-	context->single_scenario = 0;
+	context->single_scenario = 1;
 
 	ret_val = wire_server(context);
 	return(ret_val);
