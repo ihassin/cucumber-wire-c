@@ -10,7 +10,7 @@
 #include "wire-listener.h"
 #endif
 
-#define LOG(m) { if (logger) (*logger) (m); }
+#define LOG(m) { if (context->logger) (*context->logger) (m); }
 
 #define kBeginScenario  "[\"begin_scenario\"]"
 #define kEndScenario    "[\"end_scenario\"]"
@@ -57,7 +57,16 @@ int getBuffer(int socket, char *buffer, size_t len)
     return(len);
 }
 
-int wire_listener_default(int port, wire_logger logger, int single_scenario)
+char *handle_callback(wire_feature_callback callback, wire_context *context)
+{
+    if(callback && ((*callback) (context) != 0))
+    {
+        return "[\"fail\",{\"message\":\"handler failed\"}]\n";
+    }
+    return "[\"success\"]\n";
+}
+
+int wire_listener_default(wire_context *context)
 {
     int sockfd, newsockfd;
     socklen_t clilen;
@@ -80,7 +89,7 @@ int wire_listener_default(int port, wire_logger logger, int single_scenario)
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serv_addr.sin_port = htons(port);
+    serv_addr.sin_port = htons(context->port);
  
     int optval = 1;
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
@@ -103,10 +112,8 @@ int wire_listener_default(int port, wire_logger logger, int single_scenario)
         return(3);
     }
 
-    if (logger)
-    {
-        (*logger) ("listener: Accepting connection");
-    }
+    LOG ("listener: Accepting connection");
+
     clilen = sizeof(cli_addr);
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
     if (newsockfd < 0) 
@@ -123,15 +130,13 @@ int wire_listener_default(int port, wire_logger logger, int single_scenario)
         if (ret_val <= 0)
         {
             close(newsockfd);
-            if(single_scenario)
+            if(context->single_scenario)
             {
                 break;
             }
             clilen = sizeof(cli_addr);
-            if (logger)
-            {
-                (*logger) ("listener: Accepting connection");
-            }
+            LOG("listener: Accepting connection")
+
             newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
             if (newsockfd < 0) 
             {
@@ -157,18 +162,28 @@ int wire_listener_default(int port, wire_logger logger, int single_scenario)
         }
         if(found < arrayLen)
         {
-            if(found == 2)
+            switch(found)
             {
-                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
-            }
-            else
-            {
-                strcpy(buffer, "[\"success\", []]\n");
+                case 0:                 // begin_scenario
+                    strcpy(buffer, handle_callback(context->begin_callback, context));
+                    break;
+
+                case 1:                 // end_scenario
+                    strcpy(buffer, handle_callback(context->end_callback, context));
+                    break;
+
+                case 2:
+                    strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+                    break;
+
+                default:
+                    strcpy(buffer, "[\"success\", []]\n");
+                    break;                
             }
         }
         else
         {
-            strcpy(buffer, "[\"fail\"]\n");
+            strcpy(buffer, "[\"fail\",{\"message\":\"Cucumber sent us an unknown command\"}]\n");
         }
         LOG(buffer)
 

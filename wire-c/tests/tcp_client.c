@@ -64,7 +64,7 @@ int tcp_client(wire_context *context)
 
     if(context->packet_injector)
     {
-        packet = (*context->packet_injector) ();
+        packet = (*context->packet_injector) (context);
     }
     else
     {
@@ -74,7 +74,7 @@ int tcp_client(wire_context *context)
 
     if(context->packet_dejector)
     {
-        dejector = (*context->packet_dejector) ();
+        dejector = (*context->packet_dejector) (context);
     }
     else
     {

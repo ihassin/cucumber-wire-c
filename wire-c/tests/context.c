@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define ALLOC_CONTEXT	1
 #ifndef __CONTEXT_H__
@@ -14,6 +15,7 @@ void my_logger(char *log)
 void setUp(void)
 {
 	context = malloc(sizeof(wire_context));
+	memset(context, 0, sizeof(wire_context));
 	context->logger = my_logger;
 	context->port = 3901;
 }

@@ -15,12 +15,9 @@
 
 #define LOG(m) { if (context->logger) (*context->logger) (m); }
 
-int dummy_listener(int port, wire_logger logger, int loops)
+int dummy_listener(wire_context *context)
 {
-    if(logger)
-    {
-        (*logger) ("Dummy listener called");
-    }
+    LOG("Dummy listener called")
     return(0);
 }
 
@@ -47,19 +44,19 @@ void rejects_zero_port_number(void)
 void *client_thread_routine(void *data)
 {
     wire_context *context = (wire_context *) data;
-    int ret_val = (*context->listener) (context->port, context->logger, context->single_scenario);
+    int ret_val = (*context->listener) (context);
     pthread_exit(data);
     return(0);
 }
 
-char *injector(void)
+char *injector(wire_context *context)
 {
     return("hi\n");
 }
 
-char *dejector(void)
+char *dejector(wire_context *context)
 {
-    return("[\"fail\"]\n");
+    return("[\"fail\",{\"message\":\"Cucumber sent us an unknown command\"}]\n");
 }
 
 void listens_on_requested_port(void)
@@ -70,6 +67,8 @@ void listens_on_requested_port(void)
     context->packet_dejector = dejector;
     context->logger = 0;
     context->single_scenario = 1;
+    context->begin_callback     = 0;
+    context->end_callback       = 0;
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;

@@ -2,7 +2,7 @@
 	Rakefile to make the wire-server library and executable
 =end
 
-C_FLAGS = "-I."
+C_FLAGS = "-Werror -I."
 
 EXEC 	= "./bin/wire.out"
 LIB 	= "./lib/wire.a"
