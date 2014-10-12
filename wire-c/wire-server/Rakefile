@@ -44,6 +44,6 @@ task :clean do
 end
 
 desc "Runs the wire"
-task :run do 
-	system "#{EXEC} 3901"
+task :run => :build do 
+	system "#{EXEC} 3901 1"
 end

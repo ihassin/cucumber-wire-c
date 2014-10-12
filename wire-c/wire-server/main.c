@@ -16,10 +16,10 @@ int main(int argc, char **argv)
 	wire_context *context;
 
 	context = malloc(sizeof(context));
-	context->port = 3901;
+	context->port = atoi(argv[1]);
+	context->single_scenario = atoi(argv[2]);
 	context->logger = my_logger;
 	context->listener = wire_listener_default;
-	context->single_scenario = 1;
 
 	ret_val = wire_server(context);
 	return(ret_val);

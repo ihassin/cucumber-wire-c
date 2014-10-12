@@ -21,7 +21,7 @@ end
 obj_files = file_roots.map {|item| "obj/" + File.basename(item) + ".o"}
 
 desc "Default task will build and run the tests"
-task :default => [:build, :run]
+task :default => [:run]
 
 file "#{EXEC}" => obj_files do
 	puts "Linking #{EXEC}"
@@ -39,6 +39,7 @@ task :run => :build do
 	puts "Running tests"
 	ret_val = system("#{EXEC}")
 	fail unless ret_val
+	fail unless system "../wire-server/bin/wire.out 3901 1 & cucumber"
 end
 
 desc "Removes artefacts"
