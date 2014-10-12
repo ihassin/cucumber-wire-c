@@ -5,7 +5,6 @@ script:
   - gem install cucumber
   - cd wire-c/wire-server
   - rake clean build run
-  - cd ..
-  - cd tests
+  - cd ../tests
   - rake clean build run
   - cucumber
