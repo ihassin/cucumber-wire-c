@@ -1,7 +1,8 @@
 language: c
 compiler:
   - gcc
-script: 
+script:
+  - bundle
   - cd wire-c/wire-server
   - rake build
   - cd ../tests
