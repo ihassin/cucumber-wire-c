@@ -1,7 +1,6 @@
 language: c
 compiler:
   - gcc
-  - clang
 script: 
   - cd wire-c/wire-server
   - rake clean
