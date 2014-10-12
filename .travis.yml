@@ -2,10 +2,7 @@ language: c
 compiler:
   - gcc
 script: 
-  - gem install cucumber
   - cd wire-c/wire-server
   - rake clean build run
   - cd ../tests
-  - rake clean build
-  - sh ./bin/main.out 3901 1
-  - cucumber
+  - rake clean build run
