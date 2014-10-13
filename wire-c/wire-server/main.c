@@ -28,7 +28,7 @@ int end_callback(struct wire_context *context)
 
 int main(int argc, char **argv)
 {
-	int ret_val;
+	int retVal;
 	wire_context *context;
 
 	context = malloc(sizeof(wire_context));
@@ -41,6 +41,6 @@ int main(int argc, char **argv)
 	context->end_callback 		= end_callback;
 	context->listener 			= (wire_listener) wire_listener_default;
 
-	ret_val = wire_server(context);
-	return(ret_val);
+	retVal = wire_server(context);
+	return(retVal);
 }

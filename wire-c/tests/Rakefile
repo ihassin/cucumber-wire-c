@@ -38,8 +38,8 @@ end
 desc "Runs the test program"
 task :run => [:build] do
 	puts "Running tests"
-	ret_val = system("#{EXEC}")
-	fail unless ret_val
+	retVal = system("#{EXEC}")
+	fail unless retVal
 	fail unless system "../wire-server/bin/wire.out 3901 1 & cucumber"
 end
 

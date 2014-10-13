@@ -127,7 +127,7 @@ int wire_listener_default(wire_context *context)
     int sockfd, newsockfd;
     char buffer[1024];
     struct sockaddr_in serv_addr;
-    int n, ret_val;
+    int n, retVal;
 
     /* First call to socket() function */
     sockfd = socket(PF_INET, SOCK_STREAM, 0);
@@ -148,17 +148,17 @@ int wire_listener_default(wire_context *context)
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
 
     LOG("listener: Binding socket")
-    ret_val = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
-    if (ret_val < 0)
+    retVal = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    if (retVal < 0)
     {
         LOG("listener: Cannot bind")
-        printf("cannot bind: %d errno:%d\n", ret_val, errno);
+        printf("cannot bind: %d errno:%d\n", retVal, errno);
         return(2);
     }
 
     LOG("listener: Listening on socket")
-    ret_val = listen(sockfd, 5);
-    if (ret_val < 0)
+    retVal = listen(sockfd, 5);
+    if (retVal < 0)
     {
         close(sockfd);
         LOG("ERROR reading from socket")
@@ -175,8 +175,8 @@ int wire_listener_default(wire_context *context)
 
     while(1)
     {
-        ret_val = getRequest(newsockfd, buffer, sizeof(buffer));
-        if (ret_val <= 0)
+        retVal = getRequest(newsockfd, buffer, sizeof(buffer));
+        if (retVal <= 0)
         {
             close(newsockfd);
             if(context->single_scenario)
