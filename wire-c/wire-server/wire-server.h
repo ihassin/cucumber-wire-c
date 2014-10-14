@@ -15,10 +15,15 @@ typedef int (*wire_listener) (struct wire_context *context);
 typedef char *(*wire_packet_injector) (struct wire_context *context);
 typedef int (*wire_feature_callback) (struct wire_context *context);
 typedef int (*wire_step_match_callback) (struct wire_context *context);
+typedef int (*wire_invoke_callback) (struct wire_context *context);
 
 typedef struct step_match {
 	char name_to_match[1024];
 } StepMatch;
+
+typedef struct step_invoke {
+	int id;
+} StepInvoke;
 
 typedef struct wire_context
 {
@@ -31,11 +36,13 @@ typedef struct wire_context
 	wire_feature_callback		begin_callback;
 	wire_feature_callback		end_callback;
 	wire_step_match_callback	step_match_callback;
+	wire_invoke_callback		invoke_callback;
 	char incoming[1024];
 	char outgoing[1024];
 	union
 	{
 		StepMatch step_match;
+		StepInvoke step_invoke;
 	} request_block;
 } wire_context;
 

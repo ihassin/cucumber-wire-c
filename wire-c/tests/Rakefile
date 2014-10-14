@@ -18,7 +18,8 @@ header_files = %w(context.h
 	handle-step-match-tests.h
 	buffer-tests.h)
 
-file_roots = %w(main ../../unity-master/src/unity
+file_roots = %w(main
+	../../unity-master/src/unity
 	context
 	tcp-client
 	port-tests
@@ -41,7 +42,7 @@ task :default => [:run]
 
 file "#{EXEC}" => obj_files do
 	puts "Linking #{EXEC}"
-	list = "cc -o #{EXEC} " +  obj_files.join(" ") + " #{LIB} -lpthread > /dev/null"
+	list = "cc -o #{EXEC} " +  obj_files.join(" ") + " ../wire-server/obj/api.o #{LIB} -lpthread > /dev/null"
     system "#{list}"
 end
 

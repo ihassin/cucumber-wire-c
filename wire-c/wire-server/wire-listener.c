@@ -18,6 +18,15 @@
 #define kSnippet        "[\"snippet_text\""
 #define kInvoke         "[\"invoke\""
 
+int getNetworkByte(int socket, char *buffer);
+int getRequest(net_reader reader, int socket, char *buffer, size_t len);
+char *handle_callback(wire_feature_callback callback, wire_context *context);
+char *getNameToMatch(char *buffer);
+int handleRequest(char *buffer, wire_context *context);
+void cleanup(int socket1, int socket2);
+int acceptConnection(int sockfd);
+int makeSocket(int port);
+
 static ProtocolPacket protocolPackets[] = {
     kBeginScenario, 
     kEndScenario,
@@ -73,6 +82,12 @@ char *handle_callback(wire_feature_callback callback, wire_context *context)
         return "[\"fail\",{\"message\":\"handler failed\"}]\n";
     }
     return "[\"success\"]\n";
+}
+
+// ["invoke",{"id":"1","args":[]}]
+int getIDToInvoke(char *buffer)
+{
+    return(42);
 }
 
 // ["step_matches",{"name_to_match":"we're all wired"}]
@@ -144,7 +159,17 @@ int handleRequest(char *buffer, wire_context *context)
                 break;
 
             case 4:                 // invoke
-                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+                if(context->invoke_callback)
+                {
+                    strcpy(context->incoming, buffer);
+                    context->request_block.step_invoke.id = getIDToInvoke(buffer);
+                    (*context->invoke_callback) (context);
+                    strcpy(buffer, context->outgoing);
+                }
+                else
+                {
+                    strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement invoke\"}]\n");
+                }
                 break;
 
             default:                // Unknown
@@ -174,18 +199,16 @@ int acceptConnection(int sockfd)
     return accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
 }
 
-int wire_listener_default(wire_context *context)
+int makeSocket(int port)
 {
-    int sockfd, newsockfd;
-    char buffer[1024];
+    int retVal;
+    int sockfd;
     struct sockaddr_in serv_addr;
-    int n, retVal;
 
     /* First call to socket() function */
     sockfd = socket(PF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) 
     {
-      	LOG("ERROR opening socket")
         return(1);
     }
 
@@ -194,7 +217,7 @@ int wire_listener_default(wire_context *context)
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serv_addr.sin_port = htons(context->port);
+    serv_addr.sin_port = htons(port);
  
     int optval = 1;
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
@@ -202,8 +225,6 @@ int wire_listener_default(wire_context *context)
     retVal = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (retVal < 0)
     {
-        LOG("listener: Cannot bind")
-        printf("cannot bind: %d errno:%d\n", retVal, errno);
         return(2);
     }
 
@@ -211,10 +232,20 @@ int wire_listener_default(wire_context *context)
     if (retVal < 0)
     {
         close(sockfd);
-        LOG("ERROR reading from socket")
         return(3);
     }
+    return(sockfd);
+}
 
+int wire_listener_default(wire_context *context)
+{
+    char buffer[1024];
+    int newsockfd;
+    int retVal;
+    int sockfd;
+    int sent;
+
+    sockfd = makeSocket(context->port);
     newsockfd = acceptConnection(sockfd);
     if (newsockfd < 0) 
     {
@@ -248,8 +279,8 @@ int wire_listener_default(wire_context *context)
 
         /* Write a response to the client */
         int len = strlen(buffer);
-        n = send(newsockfd, buffer, len, 0);
-        if (n != len)
+        sent = send(newsockfd, buffer, len, 0);
+        if (sent != len)
         {
             cleanup(newsockfd, sockfd);
             LOG ("ERROR on write")
