@@ -26,7 +26,12 @@ static ProtocolPacket protocolPackets[] = {
     kInvoke
 };
 
-int getRequest(int socket, char *buffer, size_t len)
+int getNetworkByte(int socket, char *buffer)
+{
+    return(recv(socket, buffer, 1, 0));
+}
+
+int getRequest(net_reader reader, int socket, char *buffer, size_t len)
 {
     bzero(buffer, len);
 
@@ -35,7 +40,7 @@ int getRequest(int socket, char *buffer, size_t len)
 
     while(count > 0)
     {
-        rc = recv(socket, buffer, 1, 0);
+        rc = reader(socket, buffer);
         if (rc < 0)
         {
             return(-1);
@@ -194,7 +199,6 @@ int wire_listener_default(wire_context *context)
     int optval = 1;
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
 
-    LOG("listener: Binding socket")
     retVal = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (retVal < 0)
     {
@@ -203,7 +207,6 @@ int wire_listener_default(wire_context *context)
         return(2);
     }
 
-    LOG("listener: Listening on socket")
     retVal = listen(sockfd, 5);
     if (retVal < 0)
     {
@@ -222,7 +225,7 @@ int wire_listener_default(wire_context *context)
 
     while(1)
     {
-        retVal = getRequest(newsockfd, buffer, sizeof(buffer));
+        retVal = getRequest(getNetworkByte, newsockfd, buffer, sizeof(buffer));
         if (retVal <= 0)
         {
             close(newsockfd);

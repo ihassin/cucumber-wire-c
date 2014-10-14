@@ -19,6 +19,10 @@
 #include "handle-step-match-tests.h"
 #endif
 
+#ifndef __BUFFER_TESTS_H__
+#include "buffer-tests.h"
+#endif
+
 void *client_thread_routine(void *data);
 
 #endif
