@@ -17,7 +17,7 @@ int myGetByte(int socket, char *buffer)
 	if(incomingCounter < (sizeof(incoming) - 1))
 	{
 		*buffer = incoming[incomingCounter++];
-		return(1);
+		return 1;
 	}
 	return(0);
 }
