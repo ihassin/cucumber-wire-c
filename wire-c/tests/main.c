@@ -5,7 +5,7 @@
 //  Copyright (c) 2014 InContext. All rights reserved.
 //
 #ifndef __UNITY_TESTS_H__
-#include "unity_tests.h"
+#include "unity-tests.h"
 #endif
 
 int main(void)
@@ -36,6 +36,11 @@ int main(void)
     RUN_TEST(returns_fail_with_neg_end_callback);
     RUN_TEST(returns_fail_with_neg_begin_callback);
     RUN_TEST(handle_callback_null_context);
+
+    // Step Match tests
+    RUN_TEST(step_match_callback_no_call_with_no_buffer);
+    RUN_TEST(step_match_callback_no_call_with_null_buffer);
+    RUN_TEST(handle_step_match_no_params);
 
     return UnityEnd();
 }

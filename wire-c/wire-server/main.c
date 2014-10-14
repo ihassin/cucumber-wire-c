@@ -26,6 +26,12 @@ int end_callback(struct wire_context *context)
 	return(0);
 }
 
+int step_match_callback(wire_context *context)
+{
+	strcpy(context->outgoing, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+	return(0);
+}
+
 int main(int argc, char **argv)
 {
 	int retVal;
@@ -34,12 +40,13 @@ int main(int argc, char **argv)
 	context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
 
-	context->port 				= atoi(argv[1]);
-	context->single_scenario 	= atoi(argv[2]);
-	context->logger 			= my_logger;
-	context->begin_callback 	= begin_callback;
-	context->end_callback 		= end_callback;
-	context->listener 			= (wire_listener) wire_listener_default;
+	context->port 					= atoi(argv[1]);
+	context->single_scenario 		= atoi(argv[2]);
+	context->logger 				= my_logger;
+	context->begin_callback 		= begin_callback;
+	context->end_callback 			= end_callback;
+	context->listener 				= (wire_listener) wire_listener_default;
+	context->step_match_callback 	= step_match_callback;
 
 	retVal = wire_server(context);
 	return(retVal);

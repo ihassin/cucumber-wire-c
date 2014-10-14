@@ -2,11 +2,11 @@
 #include <string.h>
 
 #ifndef __HANDLE_REQUEST_TESTS_H__
-#include "handle_request_tests.h"
+#include "handle-request-tests.h"
 #endif
 
 #ifndef __UNITY_TESTS_H__
-#include "unity_tests.h"
+#include "unity-tests.h"
 #endif
 
 void rejects_null_context(void)

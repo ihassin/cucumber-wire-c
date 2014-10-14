@@ -21,6 +21,7 @@ void returns_success_with_end_callback(void);
 void returns_fail_with_neg_begin_callback(void);
 void returns_fail_with_neg_end_callback(void);
 void handle_callback_null_context(void);
+void handle_step_match_no_params(void);
 
 #endif
 

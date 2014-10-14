@@ -7,7 +7,7 @@
 #endif
 
 #ifndef __TCP_CLIENT_H__
-#include "tcp_client.h"
+#include "tcp-client.h"
 #endif
 
 #define BUF_SIZE 1024

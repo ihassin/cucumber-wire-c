@@ -9,8 +9,8 @@ C_FLAGS = "-Werror -I. -I../../unity-master/src -I#{WIRE_PATH}"
 EXEC = "./bin/main.out"
 LIB = "#{WIRE_PATH}/lib/wire.a"
 
-header_files = %w(context.h port_tests.h misc_tests.h unity_tests.h tcp_client.h handle_request_tests.h)
-file_roots = %w(main ../../unity-master/src/unity context tcp_client port_tests misc_tests handle_request_tests)
+header_files = %w(context.h port-tests.h misc-tests.h unity-tests.h tcp-client.h handle-request-tests.h handle-step-match-tests.h)
+file_roots = %w(main ../../unity-master/src/unity context tcp-client port-tests misc-tests handle-request-tests handle-step-match-tests)
 
 file_roots.each do |element|
     file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do

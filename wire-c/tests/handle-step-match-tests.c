@@ -1,0 +1,59 @@
+#include <stdlib.h>
+
+#ifndef __SYSTEM_INCLUDES_H__
+#include "system-includes.h"
+#endif
+
+#ifndef __HANDLE_STEP_MATCH_TESTS_H__
+#include "handle-step-match-tests.h"
+#endif
+
+#ifndef __UNITY_TESTS_H__
+#include "unity-tests.h"
+#endif
+
+static int was_called = 0;
+
+int step_match_callback(wire_context *context)
+{
+	was_called = 1;
+
+	TEST_ASSERT_EQUAL_STRING("set_alarm_on", context->request_block.step_match.name_to_match);
+	strcpy(context->outgoing, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+	return(0);
+}
+
+void step_match_callback_no_call_with_no_buffer(void)
+{
+	wire_context *context = malloc(sizeof(wire_context));
+	memset(context, 0, sizeof(wire_context));
+	context->step_match_callback = step_match_callback;
+
+	handleRequest(0, context);
+    TEST_ASSERT_EQUAL(0, was_called);
+}
+
+void step_match_callback_no_call_with_null_buffer(void)
+{
+	wire_context *context = malloc(sizeof(wire_context));
+	memset(context, 0, sizeof(wire_context));
+	context->step_match_callback = step_match_callback;
+
+	handleRequest("", context);
+    TEST_ASSERT_EQUAL(0, was_called);
+}
+
+void handle_step_match_no_params(void)
+{
+	char buffer[1024];
+
+	strcpy(buffer, "[\"step_matches\",{\"name_to_match\":\"set_alarm_on\"}]\n");
+
+	wire_context *context = malloc(sizeof(wire_context));
+	memset(context, 0, sizeof(wire_context));
+	context->step_match_callback = step_match_callback;
+
+    TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
+    TEST_ASSERT_EQUAL(1, was_called);
+    was_called = 0;
+}

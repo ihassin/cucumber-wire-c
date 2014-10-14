@@ -2,11 +2,11 @@
 #include <assert.h>
 
 #ifndef __UNITY_TESTS_H__
-#include "unity_tests.h"
+#include "unity-tests.h"
 #endif
 
 #ifndef __TCP_CLIENT_H__
-#include "tcp_client.h"
+#include "tcp-client.h"
 #endif
 
 char *end_scenario_injector(void)

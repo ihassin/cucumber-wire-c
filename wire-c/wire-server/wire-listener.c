@@ -70,6 +70,25 @@ char *handle_callback(wire_feature_callback callback, wire_context *context)
     return "[\"success\"]\n";
 }
 
+// ["step_matches",{"name_to_match":"we're all wired"}]
+char *getNameToMatch(char *buffer)
+{
+    static char name[1024];
+    char *namePtr = name;
+
+    char *token = "\"name_to_match\"";
+    char *ptr = strstr(buffer, token);
+    ptr += strlen(token);
+    ptr = strstr(ptr, "\"") + 1;
+    char *end = strstr(ptr, "\"");
+    while(ptr < end)
+    {
+        *namePtr++ = *ptr++;
+    }
+    *namePtr = 0;
+    return(name);
+}
+
 int handleRequest(char *buffer, wire_context *context)
 {
     int found;
@@ -92,16 +111,27 @@ int handleRequest(char *buffer, wire_context *context)
     {
         switch(found)
         {
-            case 0:                 // begin_scenario
+            case 0:                 // begin_scenario           ["begin_scenario"]
                 strcpy(buffer, handle_callback(context->begin_callback, context));
                 break;
 
-            case 1:                 // end_scenario
+            case 1:                 // end_scenario             ["end_scenario"]
                 strcpy(buffer, handle_callback(context->end_callback, context));
                 break;
 
-            case 2:                 // step_match
-                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+            case 2:                 // step_match               ["step_matches",{"name_to_match":"we're all wired"}]
+                                    // "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n"
+                if(context->step_match_callback)
+                {
+                    strcpy(context->incoming, buffer);
+                    strcpy(context->request_block.step_match.name_to_match, getNameToMatch(buffer));
+                    (*context->step_match_callback) (context);
+                    strcpy(buffer, context->outgoing);
+                }
+                else
+                {
+                    strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement step_match\"}]\n");
+                }
                 break;
 
             case 3:                 // snippet
