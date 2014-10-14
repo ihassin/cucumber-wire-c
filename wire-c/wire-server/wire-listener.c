@@ -45,7 +45,7 @@ int getRequest(int socket, char *buffer, size_t len)
             len -= count;
             break;
         }
-        if(rc == 0 || *buffer == '\n')
+        if((rc == 0) || (*buffer == '\n'))
         {
             *buffer = 0;
             len -= count;
@@ -59,6 +59,10 @@ int getRequest(int socket, char *buffer, size_t len)
 
 char *handle_callback(wire_feature_callback callback, wire_context *context)
 {
+    if(!context)
+    {
+        return "[\"fail\",{\"message\":\"no context specified\"}]\n";
+    }
     if(callback && ((*callback) (context) != 0))
     {
         return "[\"fail\",{\"message\":\"handler failed\"}]\n";
@@ -70,6 +74,11 @@ int handleRequest(char *buffer, wire_context *context)
 {
     int found;
     int arrayLen = sizeof(protocolPackets)/sizeof(ProtocolPacket);
+
+    if(!context || !buffer || !*buffer)
+    {
+        return(1);
+    }
 
     for(found = 0; found < arrayLen; found++)
     {
@@ -91,12 +100,20 @@ int handleRequest(char *buffer, wire_context *context)
                 strcpy(buffer, handle_callback(context->end_callback, context));
                 break;
 
-            case 2:
+            case 2:                 // step_match
                 strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
                 break;
 
-            default:
-                strcpy(buffer, "[\"success\", []]\n");
+            case 3:                 // snippet
+                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+                break;
+
+            case 4:                 // invoke
+                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+                break;
+
+            default:                // Unknown
+                strcpy(buffer, "[\"fail\",{\"message\":\"Cucumber sent us an unimplemented command\"}]\n");
                 break;                
         }
     }

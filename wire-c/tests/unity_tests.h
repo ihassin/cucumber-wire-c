@@ -11,6 +11,10 @@
 #include "misc_tests.h"
 #endif
 
+#ifndef __HANDLE_REQUEST_TESTS_H__
+#include "handle_request_tests.h"
+#endif
+
 void *client_thread_routine(void *data);
 
 #endif
