@@ -43,6 +43,21 @@ int step_match_callback(wire_context *context)
 	return(0);
 }
 
+int step_snippet_callback(wire_context *context)
+{
+	int retVal = api_match_name(context->request_block.step_match.name_to_match);
+
+	if (retVal == -1)
+	{
+		sprintf(context->outgoing, "[\"success\", []]\n");
+	}
+	else
+	{
+		sprintf(context->outgoing, "[\"success\",[\"int %s(void) { return %d; } \"]]\n", context->request_block.step_match.name_to_match, retVal);
+	}
+	return(0);
+}
+
 int invoke_callback(wire_context *context)
 {
 	printf("Invoking %d\n", context->request_block.step_invoke.id);
@@ -66,6 +81,7 @@ int main(int argc, char **argv)
 	context->listener 				= (wire_listener) wire_listener_default;
 	context->step_match_callback 	= step_match_callback;
 	context->invoke_callback 		= invoke_callback;
+	context->step_snippet_callback 	= step_snippet_callback;
 
 	retVal = wire_server(context);
 	return(retVal);

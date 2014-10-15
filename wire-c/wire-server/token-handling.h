@@ -3,5 +3,6 @@
 
 int getIDToInvoke(char *buffer);
 char *getNameToMatch(char *buffer);
+char *getSnippetToMatch(char *buffer);
 
 #endif

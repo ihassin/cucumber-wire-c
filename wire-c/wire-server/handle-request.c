@@ -62,7 +62,18 @@ int handleRequest(char *buffer, wire_context *context)
                 break;
 
             case 3:                 // snippet
-                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+                                    // ["snippet_text",{"step_keyword":"Given","step_name":"wire server is running","multiline_arg_class":""}]
+                if(context->step_snippet_callback)
+                {
+                    strcpy(context->incoming, buffer);
+                    strcpy(context->request_block.step_match.name_to_match, getSnippetToMatch(buffer));
+                    (*context->step_snippet_callback) (context);
+                    strcpy(buffer, context->outgoing);
+                }
+                else
+                {
+                    strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement step_snippet\"}]\n");
+                }
                 break;
 
             case 4:                 // invoke
