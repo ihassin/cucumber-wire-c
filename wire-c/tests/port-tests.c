@@ -13,9 +13,14 @@
 #include "tcp-client.h"
 #endif
 
+void logger (char *log)
+{
+    printf("Loogged <%s>\n", log);
+}
+
 int dummy_listener(wire_context *context)
 {
-    LOG("Dummy listener called")
+    printf("dummy_listener called\n");
     return(0);
 }
 
@@ -65,8 +70,9 @@ void listens_on_requested_port(void)
     context->packet_dejector = dejector;
     context->logger = 0;
     context->single_scenario = 1;
-    context->begin_callback     = 0;
-    context->end_callback       = 0;
+    context->begin_callback         = 0;
+    context->end_callback           = 0;
+    context->step_match_callback    = 0;
 
     // Create the thread using POSIX routines.
     pthread_attr_t  attr;
@@ -85,10 +91,12 @@ void listens_on_requested_port(void)
     assert(!retVal);
     if (threadError != 0)
     {
-         // Report an error.
+        printf("ThreadError %d\n", retVal);
     }
 
     retVal = tcp_client(context);
+    printf("tcp_client %d\n", retVal);
+
     void *status;
     pthread_join(posixThreadID, &status);
     TEST_ASSERT_EQUAL(0, retVal);
