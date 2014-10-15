@@ -10,30 +10,59 @@
 #include "wire-listener.h"
 #endif
 
-#define LOG(m) { if (context->logger && m) (*context->logger) (m); }
+int wire_listener_default(wire_context *context)
+{
+    char buffer[1024];
+    int newsockfd;
+    int retVal;
+    int sockfd;
+    int sent;
 
-#define kBeginScenario  "[\"begin_scenario\"]"
-#define kEndScenario    "[\"end_scenario\"]"
-#define kStepMatch      "[\"step_matches\""
-#define kSnippet        "[\"snippet_text\""
-#define kInvoke         "[\"invoke\""
+    sockfd = makeSocket(context->port);
+    newsockfd = acceptConnection(sockfd);
+    if (newsockfd < 0) 
+    {
+        cleanup(newsockfd, sockfd);
+        LOG("ERROR on accept")
+        return(4);
+    }
 
-int getNetworkByte(int socket, char *buffer);
-int getRequest(net_reader reader, int socket, char *buffer, size_t len);
-char *handle_callback(wire_feature_callback callback, wire_context *context);
-char *getNameToMatch(char *buffer);
-int handleRequest(char *buffer, wire_context *context);
-void cleanup(int socket1, int socket2);
-int acceptConnection(int sockfd);
-int makeSocket(int port);
+    while(1)
+    {
+        retVal = getRequest(getNetworkByte, newsockfd, buffer, sizeof(buffer));
+        if (retVal <= 0)
+        {
+            close(newsockfd);
+            if(context->single_scenario)
+            {
+                break;
+            }
+            newsockfd = acceptConnection(sockfd);
+            if (newsockfd < 0) 
+            {
+                cleanup(newsockfd, sockfd);
+                LOG("ERROR on accept-2")
+                return(5);
+            }
+            continue;
+        }
+        LOG(buffer)
 
-static ProtocolPacket protocolPackets[] = {
-    kBeginScenario, 
-    kEndScenario,
-    kStepMatch,
-    kSnippet,
-    kInvoke
-};
+        handleRequest(buffer, context);
+
+        /* Write a response to the client */
+        int len = strlen(buffer);
+        sent = send(newsockfd, buffer, len, 0);
+        if (sent != len)
+        {
+            cleanup(newsockfd, sockfd);
+            LOG ("ERROR on write")
+            return(6);
+        }
+    }
+    cleanup(newsockfd, sockfd);
+    return 0; 
+}
 
 int getNetworkByte(int socket, char *buffer)
 {
@@ -82,107 +111,6 @@ char *handle_callback(wire_feature_callback callback, wire_context *context)
         return "[\"fail\",{\"message\":\"handler failed\"}]\n";
     }
     return "[\"success\"]\n";
-}
-
-// ["invoke",{"id":"1","args":[]}]
-int getIDToInvoke(char *buffer)
-{
-    return(42);
-}
-
-// ["step_matches",{"name_to_match":"we're all wired"}]
-char *getNameToMatch(char *buffer)
-{
-    static char name[1024];
-    char *namePtr = name;
-
-    char *token = "\"name_to_match\"";
-    char *ptr = strstr(buffer, token);
-    ptr += strlen(token);
-    ptr = strstr(ptr, "\"") + 1;
-    char *end = strstr(ptr, "\"");
-    while(ptr < end)
-    {
-        *namePtr++ = *ptr++;
-    }
-    *namePtr = 0;
-    return(name);
-}
-
-int handleRequest(char *buffer, wire_context *context)
-{
-    int found;
-    int arrayLen = sizeof(protocolPackets)/sizeof(ProtocolPacket);
-
-    if(!context || !buffer || !*buffer)
-    {
-        return(1);
-    }
-
-    for(found = 0; found < arrayLen; found++)
-    {
-        char *packet = protocolPackets[found].packet;
-        if(strstr(buffer, packet))
-        {
-            break;
-        }
-    }
-    if(found < arrayLen)
-    {
-        switch(found)
-        {
-            case 0:                 // begin_scenario           ["begin_scenario"]
-                strcpy(buffer, handle_callback(context->begin_callback, context));
-                break;
-
-            case 1:                 // end_scenario             ["end_scenario"]
-                strcpy(buffer, handle_callback(context->end_callback, context));
-                break;
-
-            case 2:                 // step_match               ["step_matches",{"name_to_match":"we're all wired"}]
-                                    // "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n"
-                if(context->step_match_callback)
-                {
-                    strcpy(context->incoming, buffer);
-                    strcpy(context->request_block.step_match.name_to_match, getNameToMatch(buffer));
-                    (*context->step_match_callback) (context);
-                    strcpy(buffer, context->outgoing);
-                }
-                else
-                {
-                    strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement step_match\"}]\n");
-                }
-                break;
-
-            case 3:                 // snippet
-                strcpy(buffer, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
-                break;
-
-            case 4:                 // invoke
-                if(context->invoke_callback)
-                {
-                    strcpy(context->incoming, buffer);
-                    context->request_block.step_invoke.id = getIDToInvoke(buffer);
-                    (*context->invoke_callback) (context);
-                    strcpy(buffer, context->outgoing);
-                }
-                else
-                {
-                    strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement invoke\"}]\n");
-                }
-                break;
-
-            default:                // Unknown
-                strcpy(buffer, "[\"fail\",{\"message\":\"Cucumber sent us an unimplemented command\"}]\n");
-                break;                
-        }
-    }
-    else
-    {
-        strcpy(buffer, "[\"fail\",{\"message\":\"Cucumber sent us an unknown command\"}]\n");
-    }
-    LOG(buffer)
-    return(0);
 }
 
 void cleanup(int socket1, int socket2)
@@ -237,56 +165,3 @@ int makeSocket(int port)
     return(sockfd);
 }
 
-int wire_listener_default(wire_context *context)
-{
-    char buffer[1024];
-    int newsockfd;
-    int retVal;
-    int sockfd;
-    int sent;
-
-    sockfd = makeSocket(context->port);
-    newsockfd = acceptConnection(sockfd);
-    if (newsockfd < 0) 
-    {
-        cleanup(newsockfd, sockfd);
-        LOG("ERROR on accept")
-        return(4);
-    }
-
-    while(1)
-    {
-        retVal = getRequest(getNetworkByte, newsockfd, buffer, sizeof(buffer));
-        if (retVal <= 0)
-        {
-            close(newsockfd);
-            if(context->single_scenario)
-            {
-                break;
-            }
-            newsockfd = acceptConnection(sockfd);
-            if (newsockfd < 0) 
-            {
-                cleanup(newsockfd, sockfd);
-                LOG("ERROR on accept-2")
-                return(5);
-            }
-            continue;
-        }
-        LOG(buffer)
-
-        handleRequest(buffer, context);
-
-        /* Write a response to the client */
-        int len = strlen(buffer);
-        sent = send(newsockfd, buffer, len, 0);
-        if (sent != len)
-        {
-            cleanup(newsockfd, sockfd);
-            LOG ("ERROR on write")
-            return(6);
-        }
-    }
-    cleanup(newsockfd, sockfd);
-    return 0; 
-}

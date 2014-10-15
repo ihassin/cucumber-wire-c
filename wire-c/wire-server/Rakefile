@@ -1,7 +1,13 @@
 =begin
 	Rakefile to make the wire-server library and executable
+
+AVR_COMPILER="/usr/local/CrossPack-AVR/bin/avr-gcc"
+AVR_C_FLAGS = "-I../../avr-libc-1.8.1/include -Werror -I."
+C_FLAGS = "-Werror #{AVR_C_FLAGS}"
+COMPILER="#{AVR_COMPILER}"
 =end
 
+COMPILER="cc"
 C_FLAGS = "-Werror -I."
 
 EXEC 	= "./bin/wire.out"
@@ -9,13 +15,13 @@ LIB 	= "./lib/wire.a"
 
 task :default => [:build]
 
-header_files = %w(system-includes.h wire-server.h wire-listener.h api.h)
-file_roots = %w(main wire-server wire-listener api)
+header_files = %w(system-includes.h wire-server.h wire-listener.h api.h token-handling.h handle-request.h)
+file_roots = %w(main wire-server wire-listener api token-handling handle-request)
 
 file_roots.each do |element|
     file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do
         puts "Compiling #{element}"
-        fail unless system "cc #{C_FLAGS} -c #{element}.c -o obj/#{File.basename(element)}.o"
+        fail unless system "#{COMPILER} #{C_FLAGS} -c #{element}.c -o obj/#{File.basename(element)}.o"
     end
 end
 
@@ -28,7 +34,7 @@ end
 
 file "#{EXEC}" => "#{LIB}" do
 	puts "Linking wire"
-    system "cc -o #{EXEC} #{LIB}"
+    system "#{COMPILER} -o #{EXEC} #{LIB}"
 end
 
 desc "Compiles and links the wire-server executable"

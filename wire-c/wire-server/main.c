@@ -28,6 +28,7 @@ int end_callback(struct wire_context *context)
 
 int step_match_callback(wire_context *context)
 {
+
 	strcpy(context->outgoing, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
 	return(0);
 }

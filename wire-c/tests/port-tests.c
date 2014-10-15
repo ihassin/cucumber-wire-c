@@ -13,8 +13,6 @@
 #include "tcp-client.h"
 #endif
 
-#define LOG(m) { if (context->logger) (*context->logger) (m); }
-
 int dummy_listener(wire_context *context)
 {
     LOG("Dummy listener called")

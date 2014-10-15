@@ -56,28 +56,33 @@ int invoke_callback(wire_context *context)
 
 void step_match_callback_no_call_with_no_buffer(void)
 {
+    was_called = 0;
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
 	context->step_match_callback = step_match_callback;
 
 	handleRequest(0, context);
     TEST_ASSERT_EQUAL(0, was_called);
+    was_called = 0;
 }
 
 void step_match_callback_no_call_with_null_buffer(void)
 {
+    was_called = 0;
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
 	context->step_match_callback = step_match_callback;
 
 	handleRequest("", context);
     TEST_ASSERT_EQUAL(0, was_called);
+    was_called = 0;
 }
 
 void handle_step_match_no_params(void)
 {
 	char buffer[1024];
 
+    was_called = 0;
 	strcpy(buffer, "[\"step_matches\",{\"name_to_match\":\"set_alarm_on\"}]\n");
 
 	wire_context *context = malloc(sizeof(wire_context));
