@@ -22,7 +22,7 @@ int step_match_callback(wire_context *context)
 {
 	was_called = 1;
 
-	TEST_ASSERT_EQUAL_STRING("set_alarm_on", context->request_block.step_match.name_to_match);
+	TEST_ASSERT_EQUAL_STRING("wire server is running", context->request_block.step_match.name_to_match);
 
 	int id = api_match_name(context->request_block.step_match.name_to_match);
 	if(id >= 0)
@@ -83,7 +83,7 @@ void handle_step_match_no_params(void)
 	char buffer[1024];
 
     was_called = 0;
-	strcpy(buffer, "[\"step_matches\",{\"name_to_match\":\"set_alarm_on\"}]\n");
+	strcpy(buffer, "[\"step_matches\",{\"name_to_match\":\"wire server is running\"}]\n");
 
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
