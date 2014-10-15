@@ -70,11 +70,19 @@ int handleRequest(char *buffer, wire_context *context)
                 {
                     strcpy(context->incoming, buffer);
                     context->request_block.step_invoke.id = getIDToInvoke(buffer);
-                    (*context->invoke_callback) (context);
-                    strcpy(buffer, context->outgoing);
+                    int retVal = (*context->invoke_callback) (context);
+                    if(retVal == 0)
+                    {
+                        strcpy(buffer, "[\"success\"]\n");
+                    }
+                    else
+                    {
+                        sprintf(buffer, "[\"fail\",[{\"reason\":\"%d\"}]]\n", retVal);
+                    }
                 }
                 else
                 {
+                        printf("****** hi2\n");
                     strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement invoke\"}]\n");
                 }
                 break;

@@ -1,15 +1,28 @@
 #include <string.h>
+#include <stdio.h>
 
 #ifndef __API_H__
 #include "api.h"
 #endif
 
-int set_alarm_on(void *data);
-
 APITable api_table[] = {
-	{ "set_alarm_on", set_alarm_on },
+	{ "wire server is running", start_wire_server 		},
+	{ "I run this scenario", 	run_scenario 			},
+	{ "it responds correctly", 	respond_to_scenario		},
 	0
 };
+
+int invoke_by_id(int id, void *context)
+{
+	int tableSize = sizeof(api_table)/sizeof(APITable);
+
+	if (id < tableSize)
+	{
+		printf("Calling %s\n", api_table[id].api_name);
+		return((api_table[id].api) (context));
+	}
+	return(-1);
+}
 
 int api_match_name(char* name)
 {
@@ -22,11 +35,22 @@ int api_match_name(char* name)
 		{
 			return(idx);
 		}
+		idx++;
 	}
 	return(-1);
 }
 
-int set_alarm_on(void *data)
+int start_wire_server(void *data)
+{
+	return(0);
+}
+
+int run_scenario(void *data)
+{
+	return(0);
+}
+
+int respond_to_scenario(void *data)
 {
 	return(0);
 }

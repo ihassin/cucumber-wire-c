@@ -9,6 +9,10 @@
 #include "wire-server.h"
 #endif
 
+#ifndef __API_H__
+#include "api.h"
+#endif
+
 void my_logger(char *log)
 {
 	printf("Logger: %s\n", log);
@@ -16,27 +20,34 @@ void my_logger(char *log)
 
 int begin_callback(struct wire_context *context)
 {
-	printf("begin_callback called\n");
 	return(0);
 }
 
 int end_callback(struct wire_context *context)
 {
-	printf("end_callback called\n");
 	return(0);
 }
 
 int step_match_callback(wire_context *context)
 {
+	int retVal = api_match_name(context->request_block.step_match.name_to_match);
 
-	strcpy(context->outgoing, "[\"success\",[{\"id\":\"1\", \"args\":[]}]]\n");
+	if (retVal == -1)
+	{
+		sprintf(context->outgoing, "[\"success\", []]\n");
+	}
+	else
+	{
+		sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[]}]]\n", retVal);
+	}
 	return(0);
 }
 
 int invoke_callback(wire_context *context)
 {
-	sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[]}]]\n", 1);
-	return(0);
+	printf("Invoking %d\n", context->request_block.step_invoke.id);
+
+	return(invoke_by_id(context->request_block.step_invoke.id, (void *) context));
 }
 
 int main(int argc, char **argv)
