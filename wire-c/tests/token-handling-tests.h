@@ -10,6 +10,8 @@ void finds_an_invoke_request_irregular(void);
 void finds_an_invoke_request_irregular_4_digit(void);
 void finds_a_name_to_match(void);
 void finds_a_name_to_match_irregular(void);
+void handles_empty_invoke_request(void);
+void handles_empty_match_request(void);
 
 #endif
 

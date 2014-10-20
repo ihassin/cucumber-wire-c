@@ -54,3 +54,21 @@ void finds_a_name_to_match_irregular(void)
 	char *ptr = getNameToMatch(buffer);
     TEST_ASSERT_EQUAL_STRING("we're all wired", getNameToMatch(buffer));
 }
+
+void handles_empty_invoke_request(void)
+{
+	static char buffer[1024];
+
+	*buffer = 0;
+
+    TEST_ASSERT_EQUAL(-1, getIDToInvoke(buffer));
+}
+
+void handles_empty_match_request(void)
+{
+	static char buffer[1024];
+
+	*buffer = 0;
+    TEST_ASSERT_EQUAL_STRING("", getNameToMatch(buffer));
+}
+

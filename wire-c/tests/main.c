@@ -54,6 +54,8 @@ int main(void)
     // Token extraction: MATCH
     RUN_TEST(finds_a_name_to_match);
     RUN_TEST(finds_a_name_to_match_irregular);
-    
+    RUN_TEST(handles_empty_invoke_request);
+    RUN_TEST(handles_empty_match_request);
+
     return UnityEnd();
 }

@@ -27,6 +27,10 @@ char *getPastToken(char *buffer, char *token)
 // ["invoke",{"id":"1","args":[]}]
 int getIDToInvoke(char *buffer)
 {
+    if(!buffer || !*buffer)
+    {
+        return(-1);
+    }
     *name = 0;
     char *namePtr = name;
     char *ptr = getPastToken(buffer, "\"invoke\"");
@@ -40,6 +44,10 @@ int getIDToInvoke(char *buffer)
 // ["step_matches",{"name_to_match":"we're all wired"}]
 char *getNameToMatch(char *buffer)
 {
+    if(!buffer || !*buffer)
+    {
+        return("");
+    }
     *name = 0;
     char *namePtr = name;
     char *ptr = getPastToken(buffer, "\"name_to_match\"");
