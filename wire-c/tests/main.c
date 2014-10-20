@@ -46,5 +46,14 @@ int main(void)
     RUN_TEST(get_begin_request);
     RUN_TEST(get_begin_end_request);
     
+    // Token extraction: INVOKE
+    RUN_TEST(finds_an_invoke_request);
+    RUN_TEST(finds_an_invoke_request_irregular);
+    RUN_TEST(finds_an_invoke_request_irregular_4_digit);    
+
+    // Token extraction: MATCH
+    RUN_TEST(finds_a_name_to_match);
+    RUN_TEST(finds_a_name_to_match_irregular);
+    
     return UnityEnd();
 }

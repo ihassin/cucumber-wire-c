@@ -23,6 +23,10 @@
 #include "buffer-tests.h"
 #endif
 
+#ifndef __TOKEN_HANDLING_TESTS_H__
+#include "token-handling-tests.h"
+#endif
+
 void *client_thread_routine(void *data);
 
 #endif
