@@ -60,7 +60,12 @@ int step_snippet_callback(wire_context *context)
 
 int invoke_callback(wire_context *context)
 {
-	printf("Invoking %d\n", context->request_block.step_invoke.id);
+	if(context->logger)
+	{
+		char buffer[100];
+		sprintf(buffer, "Invoking %d\n", context->request_block.step_invoke.id);
+		(*context->logger) (buffer);
+	}
 
 	return(invoke_by_id(context->request_block.step_invoke.id, (void *) context));
 }
@@ -75,7 +80,7 @@ int main(int argc, char **argv)
 
 	context->port 					= atoi(argv[1]);
 	context->single_scenario 		= atoi(argv[2]);
-	context->logger 				= my_logger;
+	context->logger 				= atoi(argv[3]) == 1 ? my_logger : 0;
 	context->begin_callback 		= begin_callback;
 	context->end_callback 			= end_callback;
 	context->listener 				= (wire_listener) wire_listener_default;

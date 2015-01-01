@@ -5,6 +5,10 @@
 #include "api.h"
 #endif
 
+#ifndef __WIRE_SERVER__
+#include "wire-server.h"
+#endif
+
 APITable api_table[] = {
 	{ "wire server is running", start_wire_server 		},
 	{ "I run this scenario", 	run_scenario 			},
@@ -18,7 +22,13 @@ int invoke_by_id(int id, void *context)
 
 	if (id < tableSize)
 	{
-		printf("Calling %s\n", api_table[id].api_name);
+		wire_context *ctx = (wire_context *) context;
+		if(ctx->logger)
+		{
+			char buffer[1128];
+			sprintf(buffer, "Calling %s\n", api_table[id].api_name);
+			(*ctx->logger) (buffer);
+		}
 		return((api_table[id].api) (context));
 	}
 	return(-1);

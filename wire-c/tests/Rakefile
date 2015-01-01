@@ -59,7 +59,7 @@ task :run => [:build] do
 	puts "Running tests"
 	retVal = system("#{EXEC}")
 	fail unless retVal
-	fail unless system "../wire-server/bin/wire.out 3901 1 & cucumber"
+	fail unless system "../wire-server/bin/wire.out 3901 1 0 & cucumber"
 end
 
 desc "Removes artefacts"
