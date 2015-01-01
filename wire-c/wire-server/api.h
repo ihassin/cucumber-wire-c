@@ -15,5 +15,7 @@ typedef struct function_table
 int start_wire_server(void *data);
 int run_scenario(void *data);
 int respond_to_scenario(void *data);
+int param_scenario_run(void *data);
+int scenario_as_variable(void *data);
 
 #endif

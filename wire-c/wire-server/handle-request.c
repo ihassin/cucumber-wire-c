@@ -93,7 +93,6 @@ int handleRequest(char *buffer, wire_context *context)
                 }
                 else
                 {
-                        printf("****** hi2\n");
                     strcpy(buffer, "[\"fail\",{\"message\":\"Wire does not implement invoke\"}]\n");
                 }
                 break;

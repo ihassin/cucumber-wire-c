@@ -13,6 +13,10 @@
 #include "api.h"
 #endif
 
+#ifndef __TOKEN_HANDLING_H__
+#include "token-handling.h"
+#endif
+
 void my_logger(char *log)
 {
 	printf("Logger: %s\n", log);
@@ -30,7 +34,8 @@ int end_callback(struct wire_context *context)
 
 int step_match_callback(wire_context *context)
 {
-	int retVal = api_match_name(context->request_block.step_match.name_to_match);
+	char *name_to_match = context->request_block.step_match.name_to_match;
+	int retVal = api_match_name(name_to_match);
 
 	if (retVal == -1)
 	{
@@ -38,7 +43,13 @@ int step_match_callback(wire_context *context)
 	}
 	else
 	{
-		sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[]}]]\n", retVal);
+		char *var = getVar(name_to_match);
+		static char buff[1024];
+		if(var)
+		{
+			sprintf(buff, "{\"val\":\"%s\", \"pos\":%d}", var, getVarPosition(name_to_match, var));
+		}
+		sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[%s]}]]\n", retVal, buff);
 	}
 	return(0);
 }

@@ -20,7 +20,10 @@ void copyStr(char *to, char *from, char *end)
 char *getPastToken(char *buffer, char *token)
 {
     char *ptr = strstr(buffer, token);
-    ptr += strlen(token);
+    if(ptr)
+    {
+        ptr += strlen(token);
+    }
     return(ptr);
 }
 
@@ -66,6 +69,66 @@ char *getSnippetToMatch(char *buffer)
     char *ptr = getPastToken(buffer, "\"step_name\"");
 
     ptr = strstr(ptr, "\"") + 1;
+    char *end = strstr(ptr, "\"");
+    copyStr(namePtr, ptr, end);
+    return(name);
+}
+
+// this 'scenario' is run
+char *getVar(char *buffer)
+{
+    if(!buffer || !*buffer)
+    {
+        return(0);
+    }
+
+    *name = 0;
+    char *namePtr = name;
+    char *ptr = buffer;
+
+    ptr = strstr(ptr, "'");
+    if(!ptr)
+    {
+        return(0);
+    }
+    ++ptr;
+    char *end = strstr(ptr, "'");
+    copyStr(namePtr, ptr, end);
+    return(name);
+}
+
+// this 'scenario' is run
+int getVarPosition(char *buffer, char *var)
+{
+    if(!buffer || !*buffer)
+    {
+        return(0);
+    }
+
+    char *ptr = strstr(buffer, var);
+    if(!ptr)
+    {
+        return(0);
+    }
+    return(ptr - buffer - 1);
+}
+
+// <["invoke",{"id":"3","args":["scenario"]}]>
+char *getCucumberVar(char *buffer)
+{
+    *name = 0;
+    char *namePtr = name;
+    char *ptr = getPastToken(buffer, "\"args\"");
+    if(!ptr)
+    {
+        return(0);
+    }
+    ptr = strstr(ptr, "\"");
+    if(!ptr)
+    {
+        return(0);
+    }
+    ptr++;
     char *end = strstr(ptr, "\"");
     copyStr(namePtr, ptr, end);
     return(name);
