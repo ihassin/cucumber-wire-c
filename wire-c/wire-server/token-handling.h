@@ -4,8 +4,8 @@
 int getIDToInvoke(char *buffer);
 char *getNameToMatch(char *buffer);
 char *getSnippetToMatch(char *buffer);
-char *getVar(char *buffer);
-int getVarPosition(char *buffer, char *var);
-char *getCucumberVar(char *buffer);
+char *getGherkinVar(char *buffer);
+int getGherkinVarPosition(char *buffer, char *var);
+char *getJSONArg(char *buffer);
 
 #endif

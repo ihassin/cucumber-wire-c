@@ -57,5 +57,15 @@ int main(void)
     RUN_TEST(handles_empty_invoke_request);
     RUN_TEST(handles_empty_match_request);
 
+    // Cucumber var handling
+    RUN_TEST(finds_gherkin_var);
+    RUN_TEST(does_not_find_gherkin_var_when_missing);
+    RUN_TEST(does_not_find_gherkin_var_when_null);
+    RUN_TEST(does_not_find_gherkin_var_when_empty);
+    RUN_TEST(does_not_find_gherkin_var_when_in_double_quotes);
+
+    // JSON args
+    RUN_TEST(finds_json_arg);
+
     return UnityEnd();
 }

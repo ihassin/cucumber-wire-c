@@ -27,6 +27,10 @@
 #include "token-handling-tests.h"
 #endif
 
+#ifndef __VAR_TESTS_H__
+#include "var-tests.h"
+#endif
+
 void *client_thread_routine(void *data);
 
 #endif

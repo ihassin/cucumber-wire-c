@@ -43,11 +43,11 @@ int step_match_callback(wire_context *context)
 	}
 	else
 	{
-		char *var = getVar(name_to_match);
+		char *var = getGherkinVar(name_to_match);
 		static char buff[1024];
 		if(var)
 		{
-			sprintf(buff, "{\"val\":\"%s\", \"pos\":%d}", var, getVarPosition(name_to_match, var));
+			sprintf(buff, "{\"val\":\"%s\", \"pos\":%d}", var, getGherkinVarPosition(name_to_match, var));
 		}
 		sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[%s]}]]\n", retVal, buff);
 	}

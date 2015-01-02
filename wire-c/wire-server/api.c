@@ -75,7 +75,7 @@ int respond_to_scenario(void *data)
 int param_scenario_run(void *data)
 {
 	wire_context *context = (wire_context *) data;
-	char *var = getCucumberVar(context->incoming);
+	char *var = getJSONArg(context->incoming);
 	if(context->logger)
 	{
 		char buffer[1128];
@@ -89,7 +89,7 @@ int param_scenario_run(void *data)
 int scenario_as_variable(void *data)
 {
 	wire_context *context = (wire_context *) data;
-	char *var = getCucumberVar(context->incoming);
+	char *var = getJSONArg(context->incoming);
 	if(context->logger)
 	{
 		char buffer[1128];

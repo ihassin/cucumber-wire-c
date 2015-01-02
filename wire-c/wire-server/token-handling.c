@@ -75,7 +75,7 @@ char *getSnippetToMatch(char *buffer)
 }
 
 // this 'scenario' is run
-char *getVar(char *buffer)
+char *getGherkinVar(char *buffer)
 {
     if(!buffer || !*buffer)
     {
@@ -98,7 +98,7 @@ char *getVar(char *buffer)
 }
 
 // this 'scenario' is run
-int getVarPosition(char *buffer, char *var)
+int getGherkinVarPosition(char *buffer, char *var)
 {
     if(!buffer || !*buffer)
     {
@@ -114,7 +114,7 @@ int getVarPosition(char *buffer, char *var)
 }
 
 // <["invoke",{"id":"3","args":["scenario"]}]>
-char *getCucumberVar(char *buffer)
+char *getJSONArg(char *buffer)
 {
     *name = 0;
     char *namePtr = name;

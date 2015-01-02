@@ -18,7 +18,8 @@ header_files = %w(context.h
 	handle-request-tests.h
 	handle-step-match-tests.h
 	buffer-tests.h
-	token-handling-tests.h)
+	token-handling-tests.h
+	var-tests.h)
 
 file_roots = %w(main
 	../../unity-master/src/unity
@@ -29,7 +30,8 @@ file_roots = %w(main
 	handle-request-tests
 	handle-step-match-tests
 	buffer-tests
-	token-handling-tests)
+	token-handling-tests
+	var-tests)
 
 file_roots.each do |element|
     file "obj/#{File.basename(element)}.o" => header_files + ["#{element}.c"] do
