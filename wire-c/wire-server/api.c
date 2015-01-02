@@ -5,11 +5,11 @@
 #include "api.h"
 #endif
 
-#ifndef __WIRE_SERVER__
+#ifndef __WIRE_SERVER_H__
 #include "wire-server.h"
 #endif
 
-#ifndef __TOKEN_HANDLINGH__
+#ifndef __TOKEN_HANDLING_H__
 #include "token-handling.h"
 #endif
 
@@ -17,8 +17,8 @@ APITable api_table[] = {
 	{ "wire server is running", 				start_wire_server 		}
 	, { "I run this scenario", 					run_scenario 			}
 	, { "it responds correctly", 				respond_to_scenario		}
-	, { "this 'scenario' is run", 			param_scenario_run		}
-	, { "'scenario' is parsed as a variable", scenario_as_variable 	}
+	, { "this 'scenario' is run", 				param_scenario_run		}
+	, { "'scenario' is parsed as a variable", 	scenario_as_variable 	}
 	, 0
 };
 
