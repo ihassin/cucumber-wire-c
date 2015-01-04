@@ -11,8 +11,8 @@ The Wire will answer the Cucumber Gem's protocol as I have undertood it from cod
 
 # Platform Compatibility
 
-Mac OS X (Intel)
-iOS (Arm6/Arm7) - Thanks [Dan!](https://github.com/dingbat)
+* Mac OS X (Intel)
+* iOS (Arm6/Arm7) - Thanks [Dan!](https://github.com/dingbat)
 
 # XCode Compatibility
 
