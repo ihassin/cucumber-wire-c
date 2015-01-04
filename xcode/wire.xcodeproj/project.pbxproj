@@ -25,8 +25,6 @@
 		938009511A58C890004E4A96 /* handle-request.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009411A58C890004E4A96 /* handle-request.h */; };
 		938009521A58C890004E4A96 /* system-includes.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009421A58C890004E4A96 /* system-includes.h */; };
 		938009531A58C890004E4A96 /* system-includes.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009421A58C890004E4A96 /* system-includes.h */; };
-		938009541A58C890004E4A96 /* target-data.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009431A58C890004E4A96 /* target-data.h */; };
-		938009551A58C890004E4A96 /* target-data.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009431A58C890004E4A96 /* target-data.h */; };
 		938009561A58C890004E4A96 /* token-handling.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009441A58C890004E4A96 /* token-handling.c */; };
 		938009571A58C890004E4A96 /* token-handling.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009441A58C890004E4A96 /* token-handling.c */; };
 		938009581A58C890004E4A96 /* token-handling.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009451A58C890004E4A96 /* token-handling.h */; };
@@ -119,7 +117,6 @@
 		938009401A58C890004E4A96 /* handle-request.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "handle-request.c"; path = "../wire-c/wire-server/handle-request.c"; sourceTree = "<group>"; };
 		938009411A58C890004E4A96 /* handle-request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "handle-request.h"; path = "../wire-c/wire-server/handle-request.h"; sourceTree = "<group>"; };
 		938009421A58C890004E4A96 /* system-includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "system-includes.h"; path = "../wire-c/wire-server/system-includes.h"; sourceTree = "<group>"; };
-		938009431A58C890004E4A96 /* target-data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "target-data.h"; path = "../wire-c/wire-server/target-data.h"; sourceTree = "<group>"; };
 		938009441A58C890004E4A96 /* token-handling.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "token-handling.c"; path = "../wire-c/wire-server/token-handling.c"; sourceTree = "<group>"; };
 		938009451A58C890004E4A96 /* token-handling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "token-handling.h"; path = "../wire-c/wire-server/token-handling.h"; sourceTree = "<group>"; };
 		938009461A58C890004E4A96 /* wire-listener.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "wire-listener.c"; path = "../wire-c/wire-server/wire-listener.c"; sourceTree = "<group>"; };
@@ -258,7 +255,6 @@
 				938009401A58C890004E4A96 /* handle-request.c */,
 				938009411A58C890004E4A96 /* handle-request.h */,
 				938009421A58C890004E4A96 /* system-includes.h */,
-				938009431A58C890004E4A96 /* target-data.h */,
 				938009441A58C890004E4A96 /* token-handling.c */,
 				938009451A58C890004E4A96 /* token-handling.h */,
 				938009461A58C890004E4A96 /* wire-listener.c */,
@@ -307,7 +303,6 @@
 				938009581A58C890004E4A96 /* token-handling.h in Headers */,
 				938009521A58C890004E4A96 /* system-includes.h in Headers */,
 				938009601A58C890004E4A96 /* wire-server.h in Headers */,
-				938009541A58C890004E4A96 /* target-data.h in Headers */,
 				9380095C1A58C890004E4A96 /* wire-listener.h in Headers */,
 				938009501A58C890004E4A96 /* handle-request.h in Headers */,
 				9380094C1A58C890004E4A96 /* api.h in Headers */,
@@ -321,7 +316,6 @@
 				938009591A58C890004E4A96 /* token-handling.h in Headers */,
 				938009531A58C890004E4A96 /* system-includes.h in Headers */,
 				938009611A58C890004E4A96 /* wire-server.h in Headers */,
-				938009551A58C890004E4A96 /* target-data.h in Headers */,
 				9380095D1A58C890004E4A96 /* wire-listener.h in Headers */,
 				938009511A58C890004E4A96 /* handle-request.h in Headers */,
 				9380094D1A58C890004E4A96 /* api.h in Headers */,
