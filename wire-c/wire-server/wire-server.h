@@ -32,30 +32,32 @@ typedef struct step_invoke {
 
 typedef struct wire_context
 {
-	int port;
-	int single_scenario;
-	wire_logger 				logger;
-	wire_listener 				listener;
-	wire_packet_injector 		packet_injector;
-	wire_packet_injector 		packet_dejector;
-	wire_feature_callback		begin_callback;
-	wire_feature_callback		end_callback;
-	wire_step_match_callback	step_match_callback;
-	wire_step_snippet_callback	step_snippet_callback;
-	wire_invoke_callback		invoke_callback;
-	char incoming[1024];
-	char outgoing[1024];
-	union
-	{
-		StepMatch step_match;
-		StepInvoke step_invoke;
-	} request_block;
-    APITable *api_table;
+    int                             port;
+    int                             single_scenario;
+    APITable                        *api_table;
+    wire_logger                     logger;
+    wire_feature_callback           begin_callback;
+    wire_feature_callback           end_callback;
+    wire_listener                   listener;
+    wire_packet_injector            packet_injector;
+    wire_packet_injector            packet_dejector;
+    wire_step_match_callback        step_match_callback;
+    wire_step_snippet_callback      step_snippet_callback;
+    wire_invoke_callback            invoke_callback;
+    char                            incoming[1024];
+    char                            outgoing[1024];
+    union
+    {
+        StepMatch   step_match;
+        StepInvoke  step_invoke;
+    } request_block;
 } wire_context;
 
+int api_match_name(wire_context *context, char* name);
+int invoke_by_id(int id, struct wire_context *context);
 int wire_server(wire_context *context);
 int wire_listener_default(wire_context *context);
 char *wire_version(void);
-int run_server(int argc, char **argv);
+int run_server(int port, int single_scenario, int logging);
 
 #endif

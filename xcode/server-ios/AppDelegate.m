@@ -18,8 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    char *  args[4] = {".","3901","1","1"};
-    int ret = run_server(3, args);
+    int ret = run_server(3901, 1, 1);
     [[[UIAlertView alloc] initWithTitle:@"Server Closed" message:[NSString stringWithFormat:@"Exit code %d",ret] delegate:nil cancelButtonTitle:@"OK!" otherButtonTitles:nil] show];
     
     return YES;

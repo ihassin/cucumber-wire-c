@@ -42,7 +42,7 @@ void finds_a_name_to_match(void)
 	strcpy(buffer, "[\"step_matches\",{\"name_to_match\":\"we're all wired\"}]");
 
 	char *ptr = getNameToMatch(buffer);
-    TEST_ASSERT_EQUAL_STRING("we're all wired", getNameToMatch(buffer));
+    TEST_ASSERT_EQUAL_STRING("we're all wired", ptr);
 }
 
 void finds_a_name_to_match_irregular(void)
@@ -52,7 +52,7 @@ void finds_a_name_to_match_irregular(void)
 	strcpy(buffer, "[\"step_matches\" , { \"name_to_match\" : \"we're all wired\"}]");
 
 	char *ptr = getNameToMatch(buffer);
-    TEST_ASSERT_EQUAL_STRING("we're all wired", getNameToMatch(buffer));
+    TEST_ASSERT_EQUAL_STRING("we're all wired", ptr);
 }
 
 void handles_empty_invoke_request(void)

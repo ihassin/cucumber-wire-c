@@ -151,38 +151,26 @@ int wire_server(wire_context *context)
 	return(retVal);
 }
 
-APITable api_table[] = {
-      { "I run this scenario", 					run_scenario 			}
-    , { "it responds correctly", 				respond_to_scenario		}
-    , { "this 'scenario' is run", 				param_scenario_run		}
-    , { "'scenario' is parsed as a variable", 	scenario_as_variable 	}
-    , { "wire server is running", 				start_wire_server 		}
-    , 0
-};
-
-int run_server(int argc, char **argv)
+int run_server(int port, int single_scenario, int logging)
 {
+    extern APITable api_table[];
     int retVal;
     wire_context *context;
     
     context = malloc(sizeof(wire_context));
     memset(context, 0, sizeof(wire_context));
     
+    context->port                       = port;
+    context->single_scenario            = single_scenario;
+    context->logger                     = logging ? my_logger : 0;
 
-    context->port 					= 3901;
-    context->single_scenario 		= 1;
-    context->logger 				= my_logger;
-
-//    context->port 					= atoi(argv[1]);
-//    context->single_scenario 		= atoi(argv[2]);
-//    context->logger 				= atoi(argv[3]) == 1 ? my_logger : 0;
-    context->begin_callback 		= begin_callback;
-    context->end_callback 			= end_callback;
-    context->listener 				= (wire_listener) wire_listener_default;
-    context->step_match_callback 	= step_match_callback;
-    context->invoke_callback 		= invoke_callback;
-    context->step_snippet_callback 	= step_snippet_callback;
-    context->api_table              = api_table;
+    context->begin_callback             = begin_callback;
+    context->end_callback               = end_callback;
+    context->listener                   = (wire_listener) wire_listener_default;
+    context->step_match_callback        = step_match_callback;
+    context->invoke_callback            = invoke_callback;
+    context->step_snippet_callback      = step_snippet_callback;
+    context->api_table                  = api_table;
 
     retVal = wire_server(context);
     return(retVal);
@@ -192,6 +180,4 @@ char *wire_version()
 {
 	return(kVersion);
 }
-
-
 

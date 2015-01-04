@@ -47,8 +47,8 @@ void rejects_zero_port_number(void)
 void *client_thread_routine(void *data)
 {
     wire_context *context = (wire_context *) data;
-    int retVal = (*context->listener) (context);
-    pthread_exit(data);
+    (*context->listener) (context);
+    pthread_exit(context);
     return(0);
 }
 

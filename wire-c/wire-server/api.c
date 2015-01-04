@@ -13,25 +13,33 @@
 #include "token-handling.h"
 #endif
 
-int start_wire_server(void *data)
+APITable api_table[] = {
+      { "I run this scenario",                  run_scenario 			}
+    , { "it responds correctly",                respond_to_scenario     }
+    , { "this 'scenario' is run",               param_scenario_run		}
+    , { "'scenario' is parsed as a variable", 	scenario_as_variable 	}
+    , { "wire server is running",               start_wire_server 		}
+    , 0
+};
+
+int start_wire_server(struct wire_context *context)
 {
 	return(0);
 }
 
-int run_scenario(void *data)
+int run_scenario(struct wire_context *context)
 {
 	return(0);
 }
 
-int respond_to_scenario(void *data)
+int respond_to_scenario(struct wire_context *context)
 {
 	return(0);
 }
 
 // <["invoke",{"id":"3","args":["scenario"]}]>
-int param_scenario_run(void *data)
+int param_scenario_run(struct wire_context *context)
 {
-	wire_context *context = (wire_context *) data;
 	char *var = getJSONArg(context->incoming);
 	if(context->logger)
 	{
@@ -43,9 +51,8 @@ int param_scenario_run(void *data)
 }
 
 // <["invoke",{"id":"3","args":["scenario"]}]>
-int scenario_as_variable(void *data)
+int scenario_as_variable(struct wire_context *context)
 {
-	wire_context *context = (wire_context *) data;
 	char *var = getJSONArg(context->incoming);
 	if(context->logger)
 	{

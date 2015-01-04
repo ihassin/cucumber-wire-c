@@ -4,5 +4,5 @@
 
 int main(int argc, char **argv)
 {
-    return(run_server(argc, argv));
+    return(run_server(3901, 1, 1));
 }
