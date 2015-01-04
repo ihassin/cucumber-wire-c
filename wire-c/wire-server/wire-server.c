@@ -24,6 +24,7 @@
 #include "token-handling.h"
 #endif
 
+<<<<<<< HEAD
 #define kVersion "0.0.0.0"
 
 int api_match_name(wire_context *context, char* name)
@@ -69,6 +70,8 @@ static void my_logger(char *log)
     printf("Logger: %s\n", log);
 }
 
+=======
+>>>>>>> 6e5c41ef644150ffa250906104f6a0a437a8dc62
 int begin_callback(struct wire_context *context)
 {
     return(0);
@@ -128,6 +131,18 @@ int invoke_callback(wire_context *context)
     return(invoke_by_id(context->request_block.step_invoke.id, context));
 }
 
+<<<<<<< HEAD
+=======
+
+
+#define kVersion "0.0.0.0"
+
+static void my_logger(char *log)
+{
+    printf("Logger: %s\n", log);
+}
+
+>>>>>>> 6e5c41ef644150ffa250906104f6a0a437a8dc62
 int wire_server(wire_context *context)
 {
 	int retVal = 0;
