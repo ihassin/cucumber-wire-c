@@ -5,13 +5,27 @@
 This is the start of a platform-independent implementation of the Cucumber Wire Protocol.
 It's implemented in C to allow quick porting to different platforms. My goal is to have a single codebase for Linux (desktop, Raspberry Pi), ThreadX, Ardiuno, Mac and Windows.
 
-# Compatibility
+# Cucumber Compatibility
 
-The Wire will answer the Cucumber Gem's protocol as I have undertood it from code and the documentation
+The Wire will answer the Cucumber Gem's protocol as I have undertood it from code and the documentation.
+
+# Platform Compatibility
+
+Mac OS X (Intel)
+iOS (Arm6/Arm7) - Thanks [Dan!](https://github.com/dingbat)
+
+# XCode Compatibility
+
+Open the wire.xcworkspace file to use XCode as your development platform. Thanks [Dan!](https://github.com/dingbat)
 
 # Mileage
 
-Currently, only one parameter per Feature line is supported. Obvioulsy, this will be improved.
+Currently:
+
+* POSIX Thread compatibility
+* Works in command-line mode for Intel
+* Works on iOS as a server process
+* Only one parameter per Feature line is supported. Obvioulsy, this will be improved.
 
 
 # What's in the box?
@@ -67,4 +81,3 @@ Submit a PR, etc.
 # License
 
 None - feel free to use.
-
