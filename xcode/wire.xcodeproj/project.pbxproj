@@ -1,0 +1,663 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		938009061A58C6C0004E4A96 /* libwire.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938008A81A58C37D004E4A96 /* libwire.a */; };
+		9380094A1A58C890004E4A96 /* api.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380093E1A58C890004E4A96 /* api.c */; };
+		9380094B1A58C890004E4A96 /* api.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380093E1A58C890004E4A96 /* api.c */; };
+		9380094C1A58C890004E4A96 /* api.h in Headers */ = {isa = PBXBuildFile; fileRef = 9380093F1A58C890004E4A96 /* api.h */; };
+		9380094D1A58C890004E4A96 /* api.h in Headers */ = {isa = PBXBuildFile; fileRef = 9380093F1A58C890004E4A96 /* api.h */; };
+		9380094E1A58C890004E4A96 /* handle-request.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009401A58C890004E4A96 /* handle-request.c */; };
+		9380094F1A58C890004E4A96 /* handle-request.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009401A58C890004E4A96 /* handle-request.c */; };
+		938009501A58C890004E4A96 /* handle-request.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009411A58C890004E4A96 /* handle-request.h */; };
+		938009511A58C890004E4A96 /* handle-request.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009411A58C890004E4A96 /* handle-request.h */; };
+		938009521A58C890004E4A96 /* system-includes.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009421A58C890004E4A96 /* system-includes.h */; };
+		938009531A58C890004E4A96 /* system-includes.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009421A58C890004E4A96 /* system-includes.h */; };
+		938009541A58C890004E4A96 /* target-data.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009431A58C890004E4A96 /* target-data.h */; };
+		938009551A58C890004E4A96 /* target-data.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009431A58C890004E4A96 /* target-data.h */; };
+		938009561A58C890004E4A96 /* token-handling.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009441A58C890004E4A96 /* token-handling.c */; };
+		938009571A58C890004E4A96 /* token-handling.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009441A58C890004E4A96 /* token-handling.c */; };
+		938009581A58C890004E4A96 /* token-handling.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009451A58C890004E4A96 /* token-handling.h */; };
+		938009591A58C890004E4A96 /* token-handling.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009451A58C890004E4A96 /* token-handling.h */; };
+		9380095A1A58C890004E4A96 /* wire-listener.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009461A58C890004E4A96 /* wire-listener.c */; };
+		9380095B1A58C890004E4A96 /* wire-listener.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009461A58C890004E4A96 /* wire-listener.c */; };
+		9380095C1A58C890004E4A96 /* wire-listener.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009471A58C890004E4A96 /* wire-listener.h */; };
+		9380095D1A58C890004E4A96 /* wire-listener.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009471A58C890004E4A96 /* wire-listener.h */; };
+		9380095E1A58C890004E4A96 /* wire-server.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009481A58C890004E4A96 /* wire-server.c */; };
+		9380095F1A58C890004E4A96 /* wire-server.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009481A58C890004E4A96 /* wire-server.c */; };
+		938009601A58C890004E4A96 /* wire-server.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009491A58C890004E4A96 /* wire-server.h */; };
+		938009611A58C890004E4A96 /* wire-server.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009491A58C890004E4A96 /* wire-server.h */; };
+		938009631A58C89B004E4A96 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009621A58C89B004E4A96 /* main.c */; };
+		9380097B1A58C8C2004E4A96 /* buffer-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009651A58C8C2004E4A96 /* buffer-tests.c */; };
+		9380097C1A58C8C2004E4A96 /* context.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009671A58C8C2004E4A96 /* context.c */; };
+		9380097E1A58C8C2004E4A96 /* handle-request-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380096B1A58C8C2004E4A96 /* handle-request-tests.c */; };
+		9380097F1A58C8C2004E4A96 /* handle-step-match-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380096D1A58C8C2004E4A96 /* handle-step-match-tests.c */; };
+		938009801A58C8C2004E4A96 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380096F1A58C8C2004E4A96 /* main.c */; };
+		938009811A58C8C2004E4A96 /* misc-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009701A58C8C2004E4A96 /* misc-tests.c */; };
+		938009821A58C8C2004E4A96 /* port-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009721A58C8C2004E4A96 /* port-tests.c */; };
+		938009831A58C8C2004E4A96 /* tcp-client.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009741A58C8C2004E4A96 /* tcp-client.c */; };
+		938009841A58C8C2004E4A96 /* token-handling-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009761A58C8C2004E4A96 /* token-handling-tests.c */; };
+		938009851A58C8C2004E4A96 /* var-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009791A58C8C2004E4A96 /* var-tests.c */; };
+		938009871A58C8D1004E4A96 /* libunity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938009861A58C8D1004E4A96 /* libunity.a */; };
+		938009881A58C931004E4A96 /* libwire.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938008A81A58C37D004E4A96 /* libwire.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		938008B81A58C406004E4A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9380087F1A58C2B0004E4A96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 938008A71A58C37D004E4A96;
+			remoteInfo = server;
+		};
+		938008C51A58C438004E4A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9380087F1A58C2B0004E4A96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 938008A71A58C37D004E4A96;
+			remoteInfo = server;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		938008851A58C2B0004E4A96 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		938008BC1A58C432004E4A96 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		938008871A58C2B0004E4A96 /* wire-server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "wire-server"; sourceTree = BUILT_PRODUCTS_DIR; };
+		938008A81A58C37D004E4A96 /* libwire.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libwire.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		938008BE1A58C432004E4A96 /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		938009241A58C77E004E4A96 /* libwire-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libwire-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9380093E1A58C890004E4A96 /* api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = api.c; path = "../wire-c/wire-server/api.c"; sourceTree = "<group>"; };
+		9380093F1A58C890004E4A96 /* api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = api.h; path = "../wire-c/wire-server/api.h"; sourceTree = "<group>"; };
+		938009401A58C890004E4A96 /* handle-request.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "handle-request.c"; path = "../wire-c/wire-server/handle-request.c"; sourceTree = "<group>"; };
+		938009411A58C890004E4A96 /* handle-request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "handle-request.h"; path = "../wire-c/wire-server/handle-request.h"; sourceTree = "<group>"; };
+		938009421A58C890004E4A96 /* system-includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "system-includes.h"; path = "../wire-c/wire-server/system-includes.h"; sourceTree = "<group>"; };
+		938009431A58C890004E4A96 /* target-data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "target-data.h"; path = "../wire-c/wire-server/target-data.h"; sourceTree = "<group>"; };
+		938009441A58C890004E4A96 /* token-handling.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "token-handling.c"; path = "../wire-c/wire-server/token-handling.c"; sourceTree = "<group>"; };
+		938009451A58C890004E4A96 /* token-handling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "token-handling.h"; path = "../wire-c/wire-server/token-handling.h"; sourceTree = "<group>"; };
+		938009461A58C890004E4A96 /* wire-listener.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "wire-listener.c"; path = "../wire-c/wire-server/wire-listener.c"; sourceTree = "<group>"; };
+		938009471A58C890004E4A96 /* wire-listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "wire-listener.h"; path = "../wire-c/wire-server/wire-listener.h"; sourceTree = "<group>"; };
+		938009481A58C890004E4A96 /* wire-server.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "wire-server.c"; path = "../wire-c/wire-server/wire-server.c"; sourceTree = "<group>"; };
+		938009491A58C890004E4A96 /* wire-server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "wire-server.h"; path = "../wire-c/wire-server/wire-server.h"; sourceTree = "<group>"; };
+		938009621A58C89B004E4A96 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = "../wire-c/wire-server/main.c"; sourceTree = "<group>"; };
+		938009651A58C8C2004E4A96 /* buffer-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "buffer-tests.c"; path = "../wire-c/tests/buffer-tests.c"; sourceTree = "<group>"; };
+		938009661A58C8C2004E4A96 /* buffer-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "buffer-tests.h"; path = "../wire-c/tests/buffer-tests.h"; sourceTree = "<group>"; };
+		938009671A58C8C2004E4A96 /* context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = context.c; path = "../wire-c/tests/context.c"; sourceTree = "<group>"; };
+		938009681A58C8C2004E4A96 /* context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = context.h; path = "../wire-c/tests/context.h"; sourceTree = "<group>"; };
+		9380096B1A58C8C2004E4A96 /* handle-request-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "handle-request-tests.c"; path = "../wire-c/tests/handle-request-tests.c"; sourceTree = "<group>"; };
+		9380096C1A58C8C2004E4A96 /* handle-request-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "handle-request-tests.h"; path = "../wire-c/tests/handle-request-tests.h"; sourceTree = "<group>"; };
+		9380096D1A58C8C2004E4A96 /* handle-step-match-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "handle-step-match-tests.c"; path = "../wire-c/tests/handle-step-match-tests.c"; sourceTree = "<group>"; };
+		9380096E1A58C8C2004E4A96 /* handle-step-match-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "handle-step-match-tests.h"; path = "../wire-c/tests/handle-step-match-tests.h"; sourceTree = "<group>"; };
+		9380096F1A58C8C2004E4A96 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = "../wire-c/tests/main.c"; sourceTree = "<group>"; };
+		938009701A58C8C2004E4A96 /* misc-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "misc-tests.c"; path = "../wire-c/tests/misc-tests.c"; sourceTree = "<group>"; };
+		938009711A58C8C2004E4A96 /* misc-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "misc-tests.h"; path = "../wire-c/tests/misc-tests.h"; sourceTree = "<group>"; };
+		938009721A58C8C2004E4A96 /* port-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "port-tests.c"; path = "../wire-c/tests/port-tests.c"; sourceTree = "<group>"; };
+		938009731A58C8C2004E4A96 /* port-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "port-tests.h"; path = "../wire-c/tests/port-tests.h"; sourceTree = "<group>"; };
+		938009741A58C8C2004E4A96 /* tcp-client.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "tcp-client.c"; path = "../wire-c/tests/tcp-client.c"; sourceTree = "<group>"; };
+		938009751A58C8C2004E4A96 /* tcp-client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tcp-client.h"; path = "../wire-c/tests/tcp-client.h"; sourceTree = "<group>"; };
+		938009761A58C8C2004E4A96 /* token-handling-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "token-handling-tests.c"; path = "../wire-c/tests/token-handling-tests.c"; sourceTree = "<group>"; };
+		938009771A58C8C2004E4A96 /* token-handling-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "token-handling-tests.h"; path = "../wire-c/tests/token-handling-tests.h"; sourceTree = "<group>"; };
+		938009781A58C8C2004E4A96 /* unity-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "unity-tests.h"; path = "../wire-c/tests/unity-tests.h"; sourceTree = "<group>"; };
+		938009791A58C8C2004E4A96 /* var-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "var-tests.c"; path = "../wire-c/tests/var-tests.c"; sourceTree = "<group>"; };
+		9380097A1A58C8C2004E4A96 /* var-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "var-tests.h"; path = "../wire-c/tests/var-tests.h"; sourceTree = "<group>"; };
+		938009861A58C8D1004E4A96 /* libunity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunity.a; path = "../../wire/wire/wire/wire/derived/wire-hguwmmgxfnglkyaqcltinadxunvm/Build/Products/Debug/libunity.a"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		938008841A58C2B0004E4A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				938009881A58C931004E4A96 /* libwire.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938008A51A58C37D004E4A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938008BB1A58C432004E4A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				938009871A58C8D1004E4A96 /* libunity.a in Frameworks */,
+				938009061A58C6C0004E4A96 /* libwire.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938009181A58C77E004E4A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9380087E1A58C2B0004E4A96 = {
+			isa = PBXGroup;
+			children = (
+				938009861A58C8D1004E4A96 /* libunity.a */,
+				938009641A58C8A2004E4A96 /* tests */,
+				9380093D1A58C880004E4A96 /* src */,
+				938008881A58C2B0004E4A96 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		938008881A58C2B0004E4A96 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				938008871A58C2B0004E4A96 /* wire-server */,
+				938008A81A58C37D004E4A96 /* libwire.a */,
+				938008BE1A58C432004E4A96 /* tests */,
+				938009241A58C77E004E4A96 /* libwire-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9380093D1A58C880004E4A96 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				938009621A58C89B004E4A96 /* main.c */,
+				9380093E1A58C890004E4A96 /* api.c */,
+				9380093F1A58C890004E4A96 /* api.h */,
+				938009401A58C890004E4A96 /* handle-request.c */,
+				938009411A58C890004E4A96 /* handle-request.h */,
+				938009421A58C890004E4A96 /* system-includes.h */,
+				938009431A58C890004E4A96 /* target-data.h */,
+				938009441A58C890004E4A96 /* token-handling.c */,
+				938009451A58C890004E4A96 /* token-handling.h */,
+				938009461A58C890004E4A96 /* wire-listener.c */,
+				938009471A58C890004E4A96 /* wire-listener.h */,
+				938009481A58C890004E4A96 /* wire-server.c */,
+				938009491A58C890004E4A96 /* wire-server.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		938009641A58C8A2004E4A96 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				938009651A58C8C2004E4A96 /* buffer-tests.c */,
+				938009661A58C8C2004E4A96 /* buffer-tests.h */,
+				938009671A58C8C2004E4A96 /* context.c */,
+				938009681A58C8C2004E4A96 /* context.h */,
+				9380096B1A58C8C2004E4A96 /* handle-request-tests.c */,
+				9380096C1A58C8C2004E4A96 /* handle-request-tests.h */,
+				9380096D1A58C8C2004E4A96 /* handle-step-match-tests.c */,
+				9380096E1A58C8C2004E4A96 /* handle-step-match-tests.h */,
+				9380096F1A58C8C2004E4A96 /* main.c */,
+				938009701A58C8C2004E4A96 /* misc-tests.c */,
+				938009711A58C8C2004E4A96 /* misc-tests.h */,
+				938009721A58C8C2004E4A96 /* port-tests.c */,
+				938009731A58C8C2004E4A96 /* port-tests.h */,
+				938009741A58C8C2004E4A96 /* tcp-client.c */,
+				938009751A58C8C2004E4A96 /* tcp-client.h */,
+				938009761A58C8C2004E4A96 /* token-handling-tests.c */,
+				938009771A58C8C2004E4A96 /* token-handling-tests.h */,
+				938009781A58C8C2004E4A96 /* unity-tests.h */,
+				938009791A58C8C2004E4A96 /* var-tests.c */,
+				9380097A1A58C8C2004E4A96 /* var-tests.h */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		938008A61A58C37D004E4A96 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				938009581A58C890004E4A96 /* token-handling.h in Headers */,
+				938009521A58C890004E4A96 /* system-includes.h in Headers */,
+				938009601A58C890004E4A96 /* wire-server.h in Headers */,
+				938009541A58C890004E4A96 /* target-data.h in Headers */,
+				9380095C1A58C890004E4A96 /* wire-listener.h in Headers */,
+				938009501A58C890004E4A96 /* handle-request.h in Headers */,
+				9380094C1A58C890004E4A96 /* api.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938009191A58C77E004E4A96 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				938009591A58C890004E4A96 /* token-handling.h in Headers */,
+				938009531A58C890004E4A96 /* system-includes.h in Headers */,
+				938009611A58C890004E4A96 /* wire-server.h in Headers */,
+				938009551A58C890004E4A96 /* target-data.h in Headers */,
+				9380095D1A58C890004E4A96 /* wire-listener.h in Headers */,
+				938009511A58C890004E4A96 /* handle-request.h in Headers */,
+				9380094D1A58C890004E4A96 /* api.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		938008861A58C2B0004E4A96 /* server */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9380088E1A58C2B0004E4A96 /* Build configuration list for PBXNativeTarget "server" */;
+			buildPhases = (
+				938008831A58C2B0004E4A96 /* Sources */,
+				938008841A58C2B0004E4A96 /* Frameworks */,
+				938008851A58C2B0004E4A96 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				938008B91A58C406004E4A96 /* PBXTargetDependency */,
+			);
+			name = server;
+			productName = "wire-server";
+			productReference = 938008871A58C2B0004E4A96 /* wire-server */;
+			productType = "com.apple.product-type.tool";
+		};
+		938008A71A58C37D004E4A96 /* wire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 938008A91A58C37D004E4A96 /* Build configuration list for PBXNativeTarget "wire" */;
+			buildPhases = (
+				938008A41A58C37D004E4A96 /* Sources */,
+				938008A51A58C37D004E4A96 /* Frameworks */,
+				938008A61A58C37D004E4A96 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wire;
+			productName = server;
+			productReference = 938008A81A58C37D004E4A96 /* libwire.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		938008BD1A58C432004E4A96 /* tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 938008C21A58C432004E4A96 /* Build configuration list for PBXNativeTarget "tests" */;
+			buildPhases = (
+				938008BA1A58C432004E4A96 /* Sources */,
+				938008BB1A58C432004E4A96 /* Frameworks */,
+				938008BC1A58C432004E4A96 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				938008C61A58C438004E4A96 /* PBXTargetDependency */,
+			);
+			name = tests;
+			productName = tests;
+			productReference = 938008BE1A58C432004E4A96 /* tests */;
+			productType = "com.apple.product-type.tool";
+		};
+		938009111A58C77E004E4A96 /* wire-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 938009211A58C77E004E4A96 /* Build configuration list for PBXNativeTarget "wire-ios" */;
+			buildPhases = (
+				938009121A58C77E004E4A96 /* Sources */,
+				938009181A58C77E004E4A96 /* Frameworks */,
+				938009191A58C77E004E4A96 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "wire-ios";
+			productName = server;
+			productReference = 938009241A58C77E004E4A96 /* libwire-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9380087F1A58C2B0004E4A96 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = InContext;
+				TargetAttributes = {
+					938008861A58C2B0004E4A96 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					938008A71A58C37D004E4A96 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					938008BD1A58C432004E4A96 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 938008821A58C2B0004E4A96 /* Build configuration list for PBXProject "wire" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9380087E1A58C2B0004E4A96;
+			productRefGroup = 938008881A58C2B0004E4A96 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				938008861A58C2B0004E4A96 /* server */,
+				938008A71A58C37D004E4A96 /* wire */,
+				938009111A58C77E004E4A96 /* wire-ios */,
+				938008BD1A58C432004E4A96 /* tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		938008831A58C2B0004E4A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				938009631A58C89B004E4A96 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938008A41A58C37D004E4A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9380095E1A58C890004E4A96 /* wire-server.c in Sources */,
+				9380094A1A58C890004E4A96 /* api.c in Sources */,
+				938009561A58C890004E4A96 /* token-handling.c in Sources */,
+				9380095A1A58C890004E4A96 /* wire-listener.c in Sources */,
+				9380094E1A58C890004E4A96 /* handle-request.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938008BA1A58C432004E4A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9380097B1A58C8C2004E4A96 /* buffer-tests.c in Sources */,
+				9380097E1A58C8C2004E4A96 /* handle-request-tests.c in Sources */,
+				938009821A58C8C2004E4A96 /* port-tests.c in Sources */,
+				938009801A58C8C2004E4A96 /* main.c in Sources */,
+				938009841A58C8C2004E4A96 /* token-handling-tests.c in Sources */,
+				938009831A58C8C2004E4A96 /* tcp-client.c in Sources */,
+				938009811A58C8C2004E4A96 /* misc-tests.c in Sources */,
+				9380097C1A58C8C2004E4A96 /* context.c in Sources */,
+				9380097F1A58C8C2004E4A96 /* handle-step-match-tests.c in Sources */,
+				938009851A58C8C2004E4A96 /* var-tests.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		938009121A58C77E004E4A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9380095F1A58C890004E4A96 /* wire-server.c in Sources */,
+				9380094B1A58C890004E4A96 /* api.c in Sources */,
+				938009571A58C890004E4A96 /* token-handling.c in Sources */,
+				9380095B1A58C890004E4A96 /* wire-listener.c in Sources */,
+				9380094F1A58C890004E4A96 /* handle-request.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		938008B91A58C406004E4A96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 938008A71A58C37D004E4A96 /* wire */;
+			targetProxy = 938008B81A58C406004E4A96 /* PBXContainerItemProxy */;
+		};
+		938008C61A58C438004E4A96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 938008A71A58C37D004E4A96 /* wire */;
+			targetProxy = 938008C51A58C438004E4A96 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9380088C1A58C2B0004E4A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9380088D1A58C2B0004E4A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9380088F1A58C2B0004E4A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		938008901A58C2B0004E4A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		938008AA1A58C37D004E4A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		938008AB1A58C37D004E4A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		938008C31A58C432004E4A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/ThoughtWorks/Documents/projects/cucumber-wire-c/unity-master/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/ThoughtWorks/Documents/projects/wire/wire/wire/wire/derived/wire-server-dlxybbtddorjrqafryoipuiicffc/Build/Products/Debug",
+					"/Users/ThoughtWorks/Documents/projects/wire/wire/wire/wire/derived/wire-hguwmmgxfnglkyaqcltinadxunvm/Build/Products/Debug",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		938008C41A58C432004E4A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/ThoughtWorks/Documents/projects/cucumber-wire-c/unity-master/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/ThoughtWorks/Documents/projects/wire/wire/wire/wire/derived/wire-server-dlxybbtddorjrqafryoipuiicffc/Build/Products/Debug",
+					"/Users/ThoughtWorks/Documents/projects/wire/wire/wire/wire/derived/wire-hguwmmgxfnglkyaqcltinadxunvm/Build/Products/Debug",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		938009221A58C77E004E4A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "wire-ios";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Debug;
+		};
+		938009231A58C77E004E4A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "wire-ios";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		938008821A58C2B0004E4A96 /* Build configuration list for PBXProject "wire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9380088C1A58C2B0004E4A96 /* Debug */,
+				9380088D1A58C2B0004E4A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9380088E1A58C2B0004E4A96 /* Build configuration list for PBXNativeTarget "server" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9380088F1A58C2B0004E4A96 /* Debug */,
+				938008901A58C2B0004E4A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		938008A91A58C37D004E4A96 /* Build configuration list for PBXNativeTarget "wire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				938008AA1A58C37D004E4A96 /* Debug */,
+				938008AB1A58C37D004E4A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		938008C21A58C432004E4A96 /* Build configuration list for PBXNativeTarget "tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				938008C31A58C432004E4A96 /* Debug */,
+				938008C41A58C432004E4A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		938009211A58C77E004E4A96 /* Build configuration list for PBXNativeTarget "wire-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				938009221A58C77E004E4A96 /* Debug */,
+				938009231A58C77E004E4A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9380087F1A58C2B0004E4A96 /* Project object */;
+}
