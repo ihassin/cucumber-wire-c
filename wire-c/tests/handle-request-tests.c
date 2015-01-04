@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef __WIRE_SERVER_H__
+#include "wire-server.h"
+#endif
+
 #ifndef __HANDLE_REQUEST_TESTS_H__
 #include "handle-request-tests.h"
 #endif
@@ -150,6 +154,11 @@ void handle_callback_null_context(void)
 {
 	char *ptr = handle_callback(test_begin_callback_neg, 0);
     TEST_ASSERT(strstr(ptr, "fail"));
+}
+
+static int start_wire_server(struct wire_context *context)
+{
+    return (0);
 }
 
 static APITable test_api_table[] = {

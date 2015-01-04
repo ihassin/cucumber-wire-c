@@ -41,7 +41,6 @@
 		938009611A58C890004E4A96 /* wire-server.h in Headers */ = {isa = PBXBuildFile; fileRef = 938009491A58C890004E4A96 /* wire-server.h */; };
 		938009631A58C89B004E4A96 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009621A58C89B004E4A96 /* main.c */; };
 		9380097B1A58C8C2004E4A96 /* buffer-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009651A58C8C2004E4A96 /* buffer-tests.c */; };
-		9380097C1A58C8C2004E4A96 /* context.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009671A58C8C2004E4A96 /* context.c */; };
 		9380097E1A58C8C2004E4A96 /* handle-request-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380096B1A58C8C2004E4A96 /* handle-request-tests.c */; };
 		9380097F1A58C8C2004E4A96 /* handle-step-match-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380096D1A58C8C2004E4A96 /* handle-step-match-tests.c */; };
 		938009801A58C8C2004E4A96 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9380096F1A58C8C2004E4A96 /* main.c */; };
@@ -52,6 +51,7 @@
 		938009851A58C8C2004E4A96 /* var-tests.c in Sources */ = {isa = PBXBuildFile; fileRef = 938009791A58C8C2004E4A96 /* var-tests.c */; };
 		938009871A58C8D1004E4A96 /* libunity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938009861A58C8D1004E4A96 /* libunity.a */; };
 		938009881A58C931004E4A96 /* libwire.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938008A81A58C37D004E4A96 /* libwire.a */; };
+		939392801A59D70B0046EE09 /* test-context.c in Sources */ = {isa = PBXBuildFile; fileRef = 9393927E1A59D70B0046EE09 /* test-context.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,8 +129,6 @@
 		938009621A58C89B004E4A96 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = "../wire-c/wire-server/main.c"; sourceTree = "<group>"; };
 		938009651A58C8C2004E4A96 /* buffer-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "buffer-tests.c"; path = "../wire-c/tests/buffer-tests.c"; sourceTree = "<group>"; };
 		938009661A58C8C2004E4A96 /* buffer-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "buffer-tests.h"; path = "../wire-c/tests/buffer-tests.h"; sourceTree = "<group>"; };
-		938009671A58C8C2004E4A96 /* context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = context.c; path = "../wire-c/tests/context.c"; sourceTree = "<group>"; };
-		938009681A58C8C2004E4A96 /* context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = context.h; path = "../wire-c/tests/context.h"; sourceTree = "<group>"; };
 		9380096B1A58C8C2004E4A96 /* handle-request-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "handle-request-tests.c"; path = "../wire-c/tests/handle-request-tests.c"; sourceTree = "<group>"; };
 		9380096C1A58C8C2004E4A96 /* handle-request-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "handle-request-tests.h"; path = "../wire-c/tests/handle-request-tests.h"; sourceTree = "<group>"; };
 		9380096D1A58C8C2004E4A96 /* handle-step-match-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "handle-step-match-tests.c"; path = "../wire-c/tests/handle-step-match-tests.c"; sourceTree = "<group>"; };
@@ -148,6 +146,9 @@
 		938009791A58C8C2004E4A96 /* var-tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "var-tests.c"; path = "../wire-c/tests/var-tests.c"; sourceTree = "<group>"; };
 		9380097A1A58C8C2004E4A96 /* var-tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "var-tests.h"; path = "../wire-c/tests/var-tests.h"; sourceTree = "<group>"; };
 		938009861A58C8D1004E4A96 /* libunity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunity.a; path = "../../wire/wire/wire/wire/derived/wire-hguwmmgxfnglkyaqcltinadxunvm/Build/Products/Debug/libunity.a"; sourceTree = "<group>"; };
+		9393927A1A59D38C0046EE09 /* context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = context.h; path = "../wire-c/wire-server/context.h"; sourceTree = "<group>"; };
+		9393927E1A59D70B0046EE09 /* test-context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "test-context.c"; path = "../wire-c/tests/test-context.c"; sourceTree = "<group>"; };
+		9393927F1A59D70B0046EE09 /* test-context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "test-context.h"; path = "../wire-c/tests/test-context.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +252,7 @@
 		9380093D1A58C880004E4A96 /* wire */ = {
 			isa = PBXGroup;
 			children = (
+				9393927A1A59D38C0046EE09 /* context.h */,
 				9380093E1A58C890004E4A96 /* api.c */,
 				9380093F1A58C890004E4A96 /* api.h */,
 				938009401A58C890004E4A96 /* handle-request.c */,
@@ -270,11 +272,11 @@
 		938009641A58C8A2004E4A96 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				9393927E1A59D70B0046EE09 /* test-context.c */,
+				9393927F1A59D70B0046EE09 /* test-context.h */,
 				938009861A58C8D1004E4A96 /* libunity.a */,
 				938009651A58C8C2004E4A96 /* buffer-tests.c */,
 				938009661A58C8C2004E4A96 /* buffer-tests.h */,
-				938009671A58C8C2004E4A96 /* context.c */,
-				938009681A58C8C2004E4A96 /* context.h */,
 				9380096B1A58C8C2004E4A96 /* handle-request-tests.c */,
 				9380096C1A58C8C2004E4A96 /* handle-request-tests.h */,
 				9380096D1A58C8C2004E4A96 /* handle-step-match-tests.c */,
@@ -514,10 +516,10 @@
 				9380097E1A58C8C2004E4A96 /* handle-request-tests.c in Sources */,
 				938009821A58C8C2004E4A96 /* port-tests.c in Sources */,
 				938009801A58C8C2004E4A96 /* main.c in Sources */,
+				939392801A59D70B0046EE09 /* test-context.c in Sources */,
 				938009841A58C8C2004E4A96 /* token-handling-tests.c in Sources */,
 				938009831A58C8C2004E4A96 /* tcp-client.c in Sources */,
 				938009811A58C8C2004E4A96 /* misc-tests.c in Sources */,
-				9380097C1A58C8C2004E4A96 /* context.c in Sources */,
 				9380097F1A58C8C2004E4A96 /* handle-step-match-tests.c in Sources */,
 				938009851A58C8C2004E4A96 /* var-tests.c in Sources */,
 			);
@@ -786,6 +788,7 @@
 				93797D641A58CB9200810315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		938008821A58C2B0004E4A96 /* Build configuration list for PBXProject "wire" */ = {
 			isa = XCConfigurationList;

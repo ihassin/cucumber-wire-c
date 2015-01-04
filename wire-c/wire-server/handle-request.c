@@ -88,7 +88,7 @@ int handleRequest(char *buffer, wire_context *context)
                     }
                     else
                     {
-                        sprintf(buffer, "[\"fail\",[{\"reason\":\"%d\"}]]\n", retVal);
+                        sprintf(buffer, "[\"fail\",{\"message\":\"Failed with %d\"}]\n", retVal);
                     }
                 }
                 else

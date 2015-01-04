@@ -13,6 +13,10 @@
 #include "tcp-client.h"
 #endif
 
+#ifndef __TEST_CONTEXT_H__
+#include "test-context.h"
+#endif
+
 void logger (char *log)
 {
     printf("Loogged <%s>\n", log);

@@ -13,32 +13,38 @@
 #include "token-handling.h"
 #endif
 
+static int api_start_wire_server(struct wire_context *context);
+static int api_run_scenario(struct wire_context *context);
+static int api_respond_to_scenario(struct wire_context *context);
+static int api_param_scenario_run(struct wire_context *context);
+static int api_scenario_as_variable(struct wire_context *context);
+
 APITable api_table[] = {
-      { "I run this scenario",                  run_scenario 			}
-    , { "it responds correctly",                respond_to_scenario     }
-    , { "this 'scenario' is run",               param_scenario_run		}
-    , { "'scenario' is parsed as a variable", 	scenario_as_variable 	}
-    , { "wire server is running",               start_wire_server 		}
+      { "I run this scenario",                  api_run_scenario 			}
+    , { "it responds correctly",                api_respond_to_scenario     }
+    , { "this 'scenario' is run",               api_param_scenario_run		}
+    , { "'scenario' is parsed as a variable", 	api_scenario_as_variable 	}
+    , { "wire server is running",               api_start_wire_server 		}
     , 0
 };
 
-int start_wire_server(struct wire_context *context)
+static int api_start_wire_server(struct wire_context *context)
 {
 	return(0);
 }
 
-int run_scenario(struct wire_context *context)
+static int api_run_scenario(struct wire_context *context)
 {
 	return(0);
 }
 
-int respond_to_scenario(struct wire_context *context)
+static int api_respond_to_scenario(struct wire_context *context)
 {
 	return(0);
 }
 
 // <["invoke",{"id":"3","args":["scenario"]}]>
-int param_scenario_run(struct wire_context *context)
+static int api_param_scenario_run(struct wire_context *context)
 {
 	char *var = getJSONArg(context->incoming);
 	if(context->logger)
@@ -51,7 +57,7 @@ int param_scenario_run(struct wire_context *context)
 }
 
 // <["invoke",{"id":"3","args":["scenario"]}]>
-int scenario_as_variable(struct wire_context *context)
+static int api_scenario_as_variable(struct wire_context *context)
 {
 	char *var = getJSONArg(context->incoming);
 	if(context->logger)
@@ -62,5 +68,3 @@ int scenario_as_variable(struct wire_context *context)
 	}
 	return(0);
 }
-
-

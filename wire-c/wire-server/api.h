@@ -11,10 +11,4 @@ typedef struct function_table
 	api_function api;
 } APITable;
 
-int start_wire_server(struct wire_context *context);
-int run_scenario(struct wire_context *context);
-int respond_to_scenario(struct wire_context *context);
-int param_scenario_run(struct wire_context *context);
-int scenario_as_variable(struct wire_context *context);
-
 #endif

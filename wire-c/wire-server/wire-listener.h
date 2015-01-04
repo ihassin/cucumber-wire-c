@@ -5,6 +5,10 @@
 #include "token-handling.h"
 #endif
 
+#ifndef __CONTEXT_H__
+#include "context.h"
+#endif
+
 typedef struct
 {
     char *packet;
@@ -12,8 +16,8 @@ typedef struct
 
 typedef int (*net_reader) (int socket, char *buffer);
 
-int handleRequest(char *buffer, wire_context *context);
-char *handle_callback(wire_feature_callback callback, wire_context *context);
+int handleRequest(char *buffer, struct wire_context *context);
+char *handle_callback(wire_feature_callback callback, struct wire_context *context);
 int getRequest(net_reader reader, int socket, char *buffer, size_t len);
 
 int getNetworkByte(int socket, char *buffer);

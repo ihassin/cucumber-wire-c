@@ -8,6 +8,10 @@
 #include "handle-step-match-tests.h"
 #endif
 
+#ifndef __WIRE_SERVER_H__
+#include "wire-server.h"
+#endif
+
 #ifndef __API_H__
 #include "api.h"
 #endif
@@ -15,6 +19,11 @@
 #ifndef __UNITY_TESTS_H__
 #include "unity-tests.h"
 #endif
+
+static int start_wire_server(struct wire_context *context)
+{
+    return (0);
+}
 
 APITable test_api_table[] = {
     { "wire server is running", 				start_wire_server 		}

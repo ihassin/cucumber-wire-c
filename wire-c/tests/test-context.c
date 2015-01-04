@@ -3,8 +3,8 @@
 #include <string.h>
 
 #define ALLOC_CONTEXT	1
-#ifndef __CONTEXT_H__
-#include "context.h"
+#ifndef __TEST_CONTEXT_H__
+#include "test-context.h"
 #endif
 
 void tests_my_logger(char *log)

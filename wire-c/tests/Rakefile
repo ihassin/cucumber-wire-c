@@ -10,7 +10,7 @@ C_FLAGS = "-Werror -I. -I#{UNITY} -I#{WIRE_PATH}"
 EXEC = "./bin/main.out"
 LIB = "#{WIRE_PATH}/lib/wire.a"
 
-header_files = %w(context.h
+header_files = %w(
 	port-tests.h
 	misc-tests.h
 	unity-tests.h
@@ -19,11 +19,12 @@ header_files = %w(context.h
 	handle-step-match-tests.h
 	buffer-tests.h
 	token-handling-tests.h
-	var-tests.h)
+	var-tests.h
+	test-context.h)
 
 file_roots = %w(main
 	../../unity-master/src/unity
-	context
+	test-context
 	tcp-client
 	port-tests
 	misc-tests
