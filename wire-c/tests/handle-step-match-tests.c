@@ -24,7 +24,7 @@ static int test_step_match_callback(wire_context *context)
 
 	TEST_ASSERT_EQUAL_STRING("wire server is running", context->request_block.step_match.name_to_match);
 
-	int id = api_match_name(context->request_block.step_match.name_to_match);
+	int id = api_match_name(context, context->request_block.step_match.name_to_match);
 	if(id >= 0)
 	{
 		sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[]}]]\n", id);
@@ -73,7 +73,7 @@ void handle_step_match_no_params(void)
 
     TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
     TEST_ASSERT_EQUAL(1, was_called);
-    TEST_ASSERT(strstr(buffer, "success"));
+    TEST_ASSERT(strstr(buffer, "fail"));
 
     was_called = 0;
 }
