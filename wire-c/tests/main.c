@@ -36,6 +36,9 @@ int main(void)
     RUN_TEST(returns_fail_with_neg_end_callback);
     RUN_TEST(returns_fail_with_neg_begin_callback);
     RUN_TEST(handle_callback_null_context);
+    RUN_TEST(handle_invoke_underscript);
+    RUN_TEST(handle_invoke_overscript);
+    RUN_TEST(handle_invoke_rightscript);
 
     // Step Match tests
     RUN_TEST(step_match_callback_no_call_with_no_buffer);

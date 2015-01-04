@@ -151,3 +151,55 @@ void handle_callback_null_context(void)
 	char *ptr = handle_callback(test_begin_callback_neg, 0);
     TEST_ASSERT(strstr(ptr, "fail"));
 }
+
+static APITable test_api_table[] = {
+    { "wire server is running", 				start_wire_server 		}
+    , 0
+};
+
+int test_invoke_callback(wire_context *context)
+{
+    return(invoke_by_id(context->request_block.step_invoke.id, context));
+}
+
+void handle_invoke_underscript(void)
+{
+    char buffer[1024];
+    
+    strcpy(buffer, "[\"invoke\",{\"id\":\"-1\",\"args\":[]}]\n");
+    wire_context *context = malloc(sizeof(wire_context));
+    memset(context, 0, sizeof(wire_context));
+    context->api_table       = test_api_table;
+    context->invoke_callback = test_invoke_callback;
+
+    TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
+    TEST_ASSERT(strstr(buffer, "fail"));
+}
+
+void handle_invoke_overscript(void)
+{
+    char buffer[1024];
+    
+    strcpy(buffer, "[\"invoke\",{\"id\":\"100\",\"args\":[]}]\n");
+    wire_context *context = malloc(sizeof(wire_context));
+    memset(context, 0, sizeof(wire_context));
+    context->api_table       = test_api_table;
+    context->invoke_callback = test_invoke_callback;
+    
+    TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
+    TEST_ASSERT(strstr(buffer, "fail"));
+}
+
+void handle_invoke_rightscript(void)
+{
+    char buffer[1024];
+    
+    strcpy(buffer, "[\"invoke\",{\"id\":\"0\",\"args\":[]}]\n");
+    wire_context *context = malloc(sizeof(wire_context));
+    memset(context, 0, sizeof(wire_context));
+    context->api_table       = test_api_table;
+    context->invoke_callback = test_invoke_callback;
+    
+    TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
+    TEST_ASSERT(strstr(buffer, "success"));
+}

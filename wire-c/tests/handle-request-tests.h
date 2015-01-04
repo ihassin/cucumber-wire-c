@@ -22,6 +22,9 @@ void returns_fail_with_neg_begin_callback(void);
 void returns_fail_with_neg_end_callback(void);
 void handle_callback_null_context(void);
 void handle_step_match_no_params(void);
+void handle_invoke_underscript(void);
+void handle_invoke_overscript(void);
+void handle_invoke_rightscript(void);
 
 #endif
 
