@@ -41,6 +41,7 @@ int main(void)
     RUN_TEST(step_match_callback_no_call_with_no_buffer);
     RUN_TEST(step_match_callback_no_call_with_null_buffer);
     RUN_TEST(handle_step_match_no_params);
+    RUN_TEST(handle_step_match_not_found);
 
     // Buffer tests
     RUN_TEST(get_begin_request);

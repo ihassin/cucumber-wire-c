@@ -31,7 +31,7 @@ int api_match_name(wire_context *context, char* name)
     int idx = 0;
     APITable *ptr = context->api_table;
     
-    while(ptr)
+    while(ptr && ptr->api_name && ptr->api)
     {
         if(strcmp(name, ptr->api_name) == 0)
         {
@@ -47,7 +47,7 @@ int invoke_by_id(int id, struct wire_context *context)
     int idx = 0;
     APITable *ptr = context->api_table;
     
-    while(ptr)
+    while(ptr && ptr->api_name && ptr->api)
     {
         if(id == idx)
         {
