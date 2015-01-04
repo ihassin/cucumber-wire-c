@@ -28,11 +28,6 @@
 #include "token-handling.h"
 #endif
 
-void my_logger(char *log)
-{
-    printf("Logger: %s\n", log);
-}
-
 int begin_callback(struct wire_context *context)
 {
     return(0);
@@ -95,6 +90,11 @@ int invoke_callback(wire_context *context)
 
 
 #define kVersion "0.0.0.0"
+
+static void my_logger(char *log)
+{
+    printf("Logger: %s\n", log);
+}
 
 int wire_server(wire_context *context)
 {

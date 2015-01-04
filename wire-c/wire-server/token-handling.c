@@ -124,7 +124,7 @@ char *getJSONArg(char *buffer)
         return(0);
     }
     ptr = strstr(ptr, "\"");
-    if(!ptr)
+    if(!ptr)    
     {
         return(0);
     }
