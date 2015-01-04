@@ -9,6 +9,26 @@
 #include "unity-tests.h"
 #endif
 
+static int test_begin_callback(struct wire_context *context)
+{
+    return(0);
+}
+
+static int test_end_callback(struct wire_context *context)
+{
+    return(0);
+}
+
+static int test_begin_callback_neg(struct wire_context *context)
+{
+    return(1);
+}
+
+static int test_end_callback_neg(struct wire_context *context)
+{
+    return(1);
+}
+
 void rejects_null_context(void)
 {
     TEST_ASSERT_EQUAL(1, handleRequest("buffer", 0));
@@ -74,16 +94,6 @@ void returns_success_without_end_callback(void)
     TEST_ASSERT(strstr(buffer, "success"));
 }
 
-int begin_callback(struct wire_context *context)
-{
-	return(0);
-}
-
-int end_callback(struct wire_context *context)
-{
-	return(0);
-}
-
 void returns_success_with_begin_callback(void)
 {
 	char buffer[1024];
@@ -91,7 +101,7 @@ void returns_success_with_begin_callback(void)
 	strcpy(buffer, "[\"begin_scenario\"]\n");
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->begin_callback = begin_callback;
+	context->begin_callback = test_begin_callback;
 
     TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
     TEST_ASSERT(strstr(buffer, "success"));
@@ -104,20 +114,10 @@ void returns_success_with_end_callback(void)
 	strcpy(buffer, "[\"begin_scenario\"]\n");
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->end_callback = end_callback;
+	context->end_callback = test_end_callback;
 
     TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
     TEST_ASSERT(strstr(buffer, "success"));
-}
-
-int begin_callback_neg(struct wire_context *context)
-{
-	return(1);
-}
-
-int end_callback_neg(struct wire_context *context)
-{
-	return(1);
 }
 
 void returns_fail_with_neg_begin_callback(void)
@@ -127,7 +127,7 @@ void returns_fail_with_neg_begin_callback(void)
 	strcpy(buffer, "[\"begin_scenario\"]\n");
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->begin_callback = begin_callback_neg;
+	context->begin_callback = test_begin_callback_neg;
 
     TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
     TEST_ASSERT(strstr(buffer, "fail"));
@@ -140,7 +140,7 @@ void returns_fail_with_neg_end_callback(void)
 	strcpy(buffer, "[\"end_scenario\"]\n");
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->end_callback = end_callback_neg;
+	context->end_callback = test_end_callback_neg;
 
     TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
     TEST_ASSERT(strstr(buffer, "fail"));
@@ -148,6 +148,6 @@ void returns_fail_with_neg_end_callback(void)
 
 void handle_callback_null_context(void)
 {
-	char *ptr = handle_callback(begin_callback_neg, 0);
+	char *ptr = handle_callback(test_begin_callback_neg, 0);
     TEST_ASSERT(strstr(ptr, "fail"));
 }

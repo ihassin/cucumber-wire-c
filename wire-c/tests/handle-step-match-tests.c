@@ -18,29 +18,11 @@
 
 static int was_called = 0;
 
-int step_match_callback(wire_context *context)
+static int test_step_match_callback(wire_context *context)
 {
 	was_called = 1;
 
 	TEST_ASSERT_EQUAL_STRING("wire server is running", context->request_block.step_match.name_to_match);
-
-	int id = api_match_name(context->request_block.step_match.name_to_match);
-	if(id >= 0)
-	{
-		sprintf(context->outgoing, "[\"success\",[{\"id\":\"%d\", \"args\":[]}]]\n", id);
-	}
-	else
-	{
-		sprintf(context->outgoing, "[\"fail\",{\"message\":\"api does not support %s\"}]\n", context->request_block.step_match.name_to_match);
-	}
-	return(0);
-}
-
-int invoke_callback(wire_context *context)
-{
-	was_called = 1;
-
-	TEST_ASSERT_EQUAL_STRING("set_alarm_on", context->request_block.step_match.name_to_match);
 
 	int id = api_match_name(context->request_block.step_match.name_to_match);
 	if(id >= 0)
@@ -59,7 +41,7 @@ void step_match_callback_no_call_with_no_buffer(void)
     was_called = 0;
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->step_match_callback = step_match_callback;
+	context->step_match_callback = test_step_match_callback;
 
 	handleRequest(0, context);
     TEST_ASSERT_EQUAL(0, was_called);
@@ -71,7 +53,7 @@ void step_match_callback_no_call_with_null_buffer(void)
     was_called = 0;
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->step_match_callback = step_match_callback;
+	context->step_match_callback = test_step_match_callback;
 
 	handleRequest("", context);
     TEST_ASSERT_EQUAL(0, was_called);
@@ -87,7 +69,7 @@ void handle_step_match_no_params(void)
 
 	wire_context *context = malloc(sizeof(wire_context));
 	memset(context, 0, sizeof(wire_context));
-	context->step_match_callback = step_match_callback;
+	context->step_match_callback = test_step_match_callback;
 
     TEST_ASSERT_EQUAL(0, handleRequest(buffer, context));
     TEST_ASSERT_EQUAL(1, was_called);

@@ -8,6 +8,10 @@
 #ifndef __WIRE_SERVER_H__
 #define __WIRE_SERVER_H__
 
+#ifndef __API_H__
+#include "api.h"
+#endif
+
 struct wire_context;
 
 typedef void (*wire_logger) (char *log);
@@ -46,6 +50,7 @@ typedef struct wire_context
 		StepMatch step_match;
 		StepInvoke step_invoke;
 	} request_block;
+    APITable *api_table;
 } wire_context;
 
 int wire_server(wire_context *context);

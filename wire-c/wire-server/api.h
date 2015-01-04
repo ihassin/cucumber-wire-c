@@ -1,8 +1,10 @@
 #ifndef __API_H__
 #define __API_H__
 
-int api_match_name(char* name);
-int invoke_by_id(int id, void *context);
+struct wire_context;
+
+int api_match_name(struct wire_context *context, char* name);
+int invoke_by_id(int id, struct wire_context *context);
 
 typedef int (*api_function) (void *userData);
 
