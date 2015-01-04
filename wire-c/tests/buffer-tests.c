@@ -12,7 +12,7 @@
 static char incoming[1024];
 static int incomingCounter = 0;
 
-int myGetByte(int socket, char *buffer)
+ssize_t myGetByte(int socket, char *buffer)
 {
 	if(incomingCounter < (sizeof(incoming) - 1))
 	{
@@ -29,7 +29,7 @@ void get_begin_request(void)
 	incomingCounter = 0;
 	strcpy(incoming, "[\"begin_scenario\"]\n");
 
-	int retVal = getRequest(myGetByte, -1, request, sizeof(request));
+	ssize_t retVal = getRequest(myGetByte, -1, request, sizeof(request));
 
     TEST_ASSERT_EQUAL(strlen(incoming) - 1, retVal);
 }
@@ -41,7 +41,7 @@ void get_begin_end_request(void)
 	incomingCounter = 0;
 	strcpy(incoming, "[\"begin_scenario\"]\n[\"end_scenario\"]\n");
 
-	int retVal = getRequest(myGetByte, -1, request, sizeof(request));
+	ssize_t retVal = getRequest(myGetByte, -1, request, sizeof(request));
 
     TEST_ASSERT_EQUAL(18, retVal);
 

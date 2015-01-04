@@ -110,7 +110,7 @@ int getGherkinVarPosition(char *buffer, char *var)
     {
         return(0);
     }
-    return(ptr - buffer - 1);
+    return((int ) (ptr - buffer - 1));
 }
 
 // <["invoke",{"id":"3","args":["scenario"]}]>

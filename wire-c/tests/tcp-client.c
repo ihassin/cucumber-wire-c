@@ -29,7 +29,7 @@ int tcp_client(wire_context *context)
 
     // buffer for sending and receiving data
     char buffer[BUF_SIZE];
-    int bytesReceived;
+    ssize_t bytesReceived;
     char *packet;
     char *dejector;
 

@@ -14,9 +14,9 @@ int wire_listener_default(wire_context *context)
 {
     char buffer[1024];
     int newsockfd;
-    int retVal;
+    size_t retVal;
     int sockfd;
-    int sent;
+    size_t sent;
 
     sockfd = makeSocket(context->port);
     newsockfd = acceptConnection(sockfd);
@@ -29,7 +29,7 @@ int wire_listener_default(wire_context *context)
 
     while(1)
     {
-        retVal = getRequest(getNetworkByte, newsockfd, buffer, sizeof(buffer));
+        retVal = getRequest(getNetworkByte, newsockfd, buffer, (size_t) sizeof(buffer));
         if (retVal <= 0)
         {
             close(newsockfd);
@@ -51,7 +51,7 @@ int wire_listener_default(wire_context *context)
         handleRequest(buffer, context);
 
         /* Write a response to the client */
-        int len = strlen(buffer);
+        size_t len = strlen(buffer);
         sent = send(newsockfd, buffer, len, 0);
         if (sent != len)
         {
@@ -64,17 +64,17 @@ int wire_listener_default(wire_context *context)
     return 0; 
 }
 
-int getNetworkByte(int socket, char *buffer)
+ssize_t getNetworkByte(int socket, char *buffer)
 {
     return(recv(socket, buffer, 1, 0));
 }
 
-int getRequest(net_reader reader, int socket, char *buffer, size_t len)
+ssize_t getRequest(net_reader reader, int socket, char *buffer, ssize_t len)
 {
     bzero(buffer, len);
 
-    int count = len;
-    int rc;
+    ssize_t count = len;
+    ssize_t rc;
 
     while(count > 0)
     {
