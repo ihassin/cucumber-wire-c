@@ -1,9 +1,8 @@
 **/.idea
 **/DerivedData
-**/*.xcodeproj
 **/*.out
 **/*.o
 **/*.a
 **/*.out
 **/*.gcov
-
+**/xcuserdata
