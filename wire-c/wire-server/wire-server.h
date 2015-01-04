@@ -51,5 +51,6 @@ typedef struct wire_context
 int wire_server(wire_context *context);
 int wire_listener_default(wire_context *context);
 char *wire_version(void);
+int run_server(int argc, char **argv);
 
 #endif
